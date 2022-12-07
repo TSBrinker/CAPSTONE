@@ -4,4 +4,4 @@ from .models import Bill
 class BillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
-        fields = ['id', 'user', 'payee', 'due_date', 'description']
+        fields = ['id', 'users', 'amount', 'payee', 'due_date', 'description', 'is_split']

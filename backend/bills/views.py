@@ -15,10 +15,10 @@ def user_bills(request):
     if request.method == 'POST':
         serializer = BillSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        bills = Bill.objects.filter(user_id=request.user.id)
+        bills = Bill.objects.filter(users__id=request.user.id)
         serializer = BillSerializer(bills, many=True)
         return Response(serializer.data)
