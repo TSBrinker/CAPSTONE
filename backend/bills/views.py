@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from .models import Bill
 from .serializers import BillSerializer
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -21,4 +22,14 @@ def user_bills(request):
     elif request.method == 'GET':
         bills = Bill.objects.filter(users__id=request.user.id)
         serializer = BillSerializer(bills, many=True)
+        return Response(serializer.data)
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def update_bill(request, pk):
+    bill = get_object_or_404(Bill, pk=pk)
+    if request.method == 'PUT':
+        serializer = BillSerializer(bill, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
