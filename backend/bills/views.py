@@ -28,8 +28,13 @@ def user_bills(request):
 @permission_classes([IsAuthenticated])
 def update_bill(request, pk):
     bill = get_object_or_404(Bill, pk=pk)
-    if request.method == 'PUT':
-        serializer = BillSerializer(bill, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    print(f"request.data: [{request.data}]")
+    print(f"request.user: {request.user}")
+    if request.user.id in request.data["users"]:
+        if request.method == 'PUT':
+            serializer = BillSerializer(bill, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
