@@ -1,11 +1,12 @@
 from django.db import models
 from authentication.models import User
+from categories.models import Category
 
 # Create your models here.
 
 class Product(models.Model):
     users = models.ManyToManyField(User)
-    # category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=50)
     brand = models.CharField(max_length=50, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
