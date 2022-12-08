@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cars.apps.CarsConfig',  # This app is for example use only
     'households',
-    'household_items',
+    'products',
     'categories',
     'bills',
     'payments'
