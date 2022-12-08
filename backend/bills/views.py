@@ -22,11 +22,6 @@ def user_bills(request):
         serializer = BillSerializer(bills, many=True)
         return Response(serializer.data)
 
-
-
-
-
-
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def update_bill(request, pk):
