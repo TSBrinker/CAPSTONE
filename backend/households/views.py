@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from .models import Household
 from .serializers import HouseholdSerializer
+from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 
@@ -18,8 +20,6 @@ def get_all_households(request):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_household(request):
-    print(
-        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
         serializer = HouseholdSerializer(data=request.data)
         if serializer.is_valid():
@@ -30,3 +30,16 @@ def user_household(request):
         household = request.user.household_id
         serializer = HouseholdSerializer(household)
         return Response(serializer.data)
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def update_household(request, pk):
+    household = get_object_or_404(Household, pk=pk)
+    if request.method == 'PUT':
+        serializer = HouseholdSerializer(household, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        household.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
