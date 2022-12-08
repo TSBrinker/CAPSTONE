@@ -8,25 +8,33 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def users_bill_payments(request, bpk):
+def post_payments(request, bpk):
     if request.method == 'POST':
-        serializer = Payment(data=request.data)
+        serializer = PaymentSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(bill__id=bpk)
+            serializer.save(bill_id=bpk, user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'GET':
-        payments = Payment.objects.filter(user=request.user.id)
-        payments = payments.filter(bill__id=bpk)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_all_payments(request):
+    if request.method == 'GET':
+        payments = Payment.objects.all()
         serializer = PaymentSerializer(payments, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def all_bill_payments(request, bpk):
-    if request.method == 'GET':
-        payments = Payment.objects.filter(bill__id=bpk)
-        serializer = PaymentSerializer(payments, many=True)
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def update_payment(request, pk):
+    payment = get_object_or_404(Payment, pk=pk)
+    if request.method == 'PUT':
+        serializer = PaymentSerializer(payment, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
+    elif request.method == 'DELETE':
+        payment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
