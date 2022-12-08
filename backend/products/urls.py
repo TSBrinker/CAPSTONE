@@ -3,5 +3,6 @@ from products import views
 
 urlpatterns = [
     path('', views.get_products),
-    path('<int:pk>/', views.update_product)
+    path('<int:pk>/', views.update_product),
+    path('<int:ppk>/purchases/', include('purchases.urls'))
 ]

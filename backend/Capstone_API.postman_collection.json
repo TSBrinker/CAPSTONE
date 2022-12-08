@@ -1,0 +1,1075 @@
+{
+	"info": {
+		"_postman_id": "15a27daf-842a-46fb-9c6e-eef8d19de8f8",
+		"name": "Capstone_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23722824"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Tyler\",\r\n    \"password\": \"password1@\",\r\n    \"email\": \"tyler@brinker.com\",\r\n    \"first_name\": \"Tyler\",\r\n    \"last_name\": \"Brinker\",\r\n    \"household_id\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"tyler\",\r\n    \"password\": \"password1@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh_Access",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"PASTE REFRESH TOKEN FROM LOGIN HERE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/login/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"login",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "GET all cars (unprotected)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/cars/all/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cars",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET cars for user (protected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMjk2MzkyLCJpYXQiOjE2NzA0MzIzOTIsImp0aSI6IjA0N2UyYzFhNmJkYTRiN2ViYTVhNGY5Yjc1ZmFlYTk5IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJkYW50aGVtYW4iLCJmaXJzdF9uYW1lIjoiRGFuaWVsIn0.cS-ON1yCGn39UAwgibVcVepb4oMahx5aHfJSUWbFih0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/cars/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cars",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new car for user (protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MTU3MjczLCJpYXQiOjE2NDcyOTMyNzMsImp0aSI6IjIyMDQ4YTg2NzEzMTQyMmZhZjJmNDNmYmI2MTExZDg2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJkYW50aGVtYW4iLCJmaXJzdF9uYW1lIjoiRGFuaWVsIn0.DeTe47E7-9eCr7xKE22m3CvFMDj0Sxye5A6ndwJ024M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"year\": 1999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/cars/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cars",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Households",
+			"item": [
+				{
+					"name": "GET all households (unprotected)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/households/all/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"households",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET user household (protected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMjk3NTQxLCJpYXQiOjE2NzA0MzM1NDEsImp0aSI6Ijk3OWRkMTZjMzUyZDQ5MTdiZDJmOTJlNDU3MjFmYTlhIiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJUeWxlciIsImZpcnN0X25hbWUiOiJUeWxlciJ9.M7y55vFPDuRQyGlR1eqFkpxjH6DWPbUkaeOErcQUmNQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/households/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"households",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bills",
+			"item": [
+				{
+					"name": "GET bils for user (protected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MTU2ODM5LCJpYXQiOjE2NDcyOTI4MzksImp0aSI6ImJjYzJhZTUzOTRlYzQ3OThiNjI0YTcwYTYzYjcxOThmIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJqanZlZ2EiLCJmaXJzdF9uYW1lIjoiIn0.l9ATW5CpWF2TGniqVgU1I-a8LkuqgLQ4ok3tJh6asAA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bills/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bills",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new bill for user (protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MTU3MjczLCJpYXQiOjE2NDcyOTMyNzMsImp0aSI6IjIyMDQ4YTg2NzEzMTQyMmZhZjJmNDNmYmI2MTExZDg2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJkYW50aGVtYW4iLCJmaXJzdF9uYW1lIjoiRGFuaWVsIn0.DeTe47E7-9eCr7xKE22m3CvFMDj0Sxye5A6ndwJ024M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"year\": 1999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/cars/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"cars",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update bill by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzEyMjQ4LCJpYXQiOjE2NzA0NDgyNDgsImp0aSI6IjJjNzA3MzdjOWViOTQ2ZmVhMmM0NzgyNGE2M2IyZDRlIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzQnJha2VzRm9yQmlyZHMiLCJmaXJzdF9uYW1lIjoiSmVzc2ljYSJ9.hTDGqJczQH3KiaVqyPsURzar1ZPDXviTCEaxnf8AZ3U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 14,\r\n    \"users\": [\r\n        1,\r\n        3\r\n    ],\r\n    \"amount\": \"20.99\",\r\n    \"payee\": \"Amazon Prime\",\r\n    \"due_date\": \"2023-01-15\",\r\n    \"description\": \"Bezos is out of his mind\",\r\n    \"is_split\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bills/14/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bills",
+								"14",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT delete bill by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzEyMjQ4LCJpYXQiOjE2NzA0NDgyNDgsImp0aSI6IjJjNzA3MzdjOWViOTQ2ZmVhMmM0NzgyNGE2M2IyZDRlIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzQnJha2VzRm9yQmlyZHMiLCJmaXJzdF9uYW1lIjoiSmVzc2ljYSJ9.hTDGqJczQH3KiaVqyPsURzar1ZPDXviTCEaxnf8AZ3U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bills/14/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bills",
+								"14",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "GET payments by bill (protected) Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/all/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST payments by bill (protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"82.00\",\r\n    \"confirmation\": null,\r\n    \"notes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bills/6/payments/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bills",
+								"6",
+								"payments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update payment by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"80.00\",\r\n    \"confirmation\": \"6561891sf181fw\",\r\n    \"notes\": \"I REFUSE TO PAY FOR THE WIFFY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/update/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"update",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL payment by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/update/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"update",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GET user's categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/all/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"82.00\",\r\n    \"confirmation\": null,\r\n    \"notes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bills/6/payments/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bills",
+								"6",
+								"payments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update category by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"80.00\",\r\n    \"confirmation\": \"6561891sf181fw\",\r\n    \"notes\": \"I REFUSE TO PAY FOR THE WIFFY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/update/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"update",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL category by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/categories/6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET products by user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update product by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"80.00\",\r\n    \"confirmation\": \"6561891sf181fw\",\r\n    \"notes\": \"I REFUSE TO PAY FOR THE WIFFY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/update/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"update",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT delete product by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchases",
+			"item": [
+				{
+					"name": "GET products by user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST new product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0NjcwLCJpYXQiOjE2NzA0NjA2NzAsImp0aSI6IjYzMzA2MzlhYzg0ODQ1ZmZiM2Y1OGJjNjhjZGM2YTRkIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJKZXNzIiwiZmlyc3RfbmFtZSI6Ikplc3NpY2EifQ.xqNL-BGA7PaYYn9uHMONhfeLRck_fuWhy6bA3luDBIM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update product by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_date\": \"2022-12-21\",\r\n    \"amount\": \"80.00\",\r\n    \"confirmation\": \"6561891sf181fw\",\r\n    \"notes\": \"I REFUSE TO PAY FOR THE WIFFY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/update/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"update",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT delete product by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMzI0MTk4LCJpYXQiOjE2NzA0NjAxOTgsImp0aSI6IjNhNjUzYjZjMGUyYzRmZGVhZTdlMGRlYTMyOWNlNDM3IiwidXNlcl9pZCI6MywidXNlcm5hbWUiOiJOaWNrIiwiZmlyc3RfbmFtZSI6Ik5pY2sifQ.6_FZjHuelRdkMCNnQaG6XENyL-gVASs326ir2SwsNTs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
