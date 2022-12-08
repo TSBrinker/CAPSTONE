@@ -10,6 +10,7 @@ from bills.models import Bill
 class Payment(models.Model):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payment_date = models.DateField()
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     confirmation = models.CharField(max_length=30, blank=True, null=True)
     notes = models.CharField(max_length=100, blank=True, null=True)

@@ -4,5 +4,5 @@ from .models import Payment
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ['id', 'bill', 'user', 'amount', 'confirmation', 'notes']
+        fields = ['id', 'bill', 'user', 'payment_date', 'amount', 'confirmation', 'notes']
         depth = 1

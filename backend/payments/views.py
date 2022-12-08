@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def user_payments(request, bpk):
+def users_bill_payments(request, bpk):
     if request.method == 'POST':
         serializer = Payment(data=request.data)
         if serializer.is_valid():
@@ -20,5 +20,13 @@ def user_payments(request, bpk):
     elif request.method == 'GET':
         payments = Payment.objects.filter(user=request.user.id)
         payments = payments.filter(bill__id=bpk)
+        serializer = PaymentSerializer(payments, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def all_bill_payments(request, bpk):
+    if request.method == 'GET':
+        payments = Payment.objects.filter(bill__id=bpk)
         serializer = PaymentSerializer(payments, many=True)
         return Response(serializer.data)
