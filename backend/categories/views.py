@@ -26,11 +26,15 @@ def get_categories(request):
 @permission_classes([IsAuthenticated])
 def update_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    if request.method == 'PUT':
-        serializer = CategorySerializer(category, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    elif request.method == 'DELETE':
-        category.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    if category.user.id == request.user.id:
+        if category.user.id == request.user.id:
+            if request.method == 'PUT':
+                serializer = CategorySerializer(category, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data)
+            elif request.method == 'DELETE':
+                category.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

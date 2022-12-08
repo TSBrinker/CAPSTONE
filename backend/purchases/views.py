@@ -38,11 +38,14 @@ def post_purchase(request, ppk):
 @permission_classes([IsAuthenticated])
 def update_purchase(request, pk):
     purchase = get_object_or_404(Purchase, pk=pk)
-    if request.method == 'PUT':
-        serializer = PurchaseSerializer(purchase, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    elif request.method == 'DELETE':
-        purchase.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    if purchase.user.id == request.user.id:
+        if request.method == 'PUT':
+            serializer = PurchaseSerializer(purchase, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        elif request.method == 'DELETE':
+            purchase.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
