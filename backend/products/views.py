@@ -8,10 +8,16 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def get_products(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
         products = Product.objects.filter(users__id=request.user.id)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

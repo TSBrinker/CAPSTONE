@@ -11,8 +11,6 @@ from django.shortcuts import get_object_or_404
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_bills(request):
-    print(
-        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
         serializer = BillSerializer(data=request.data)
         if serializer.is_valid():
@@ -23,6 +21,11 @@ def user_bills(request):
         bills = Bill.objects.filter(users__id=request.user.id)
         serializer = BillSerializer(bills, many=True)
         return Response(serializer.data)
+
+
+
+
+
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
