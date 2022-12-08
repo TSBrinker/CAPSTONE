@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'households',
     'household_items',
     'categories',
-    'bills'
+    'bills',
+    'payments'
 ]
 
 MIDDLEWARE = [

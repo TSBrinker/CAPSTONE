@@ -6,4 +6,5 @@ from bills import views
 urlpatterns = [
     path('', views.user_bills),
     path('<int:pk>/', views.update_bill),
+    path('<int:bpk>/payments/', include('payments.urls'))
 ]
