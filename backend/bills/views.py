@@ -18,7 +18,7 @@ def user_bills(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        bills = Bill.objects.filter(users__id=request.user.id)
+        bills = Bill.objects.filter(users__id=request.user.id) | Bill.objects.filter(secondary_users__id=request.user.id)
         serializer = BillSerializer(bills, many=True)
         return Response(serializer.data)
 
@@ -26,11 +26,14 @@ def user_bills(request):
 @permission_classes([IsAuthenticated])
 def update_bill(request, pk):
     bill = get_object_or_404(Bill, pk=pk)
-    if request.method == 'PUT':
-        serializer = BillSerializer(bill, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    elif request.method == 'DELETE':
-        bill.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.user in bill.users.all():
+        if request.method == 'PUT':
+            serializer = BillSerializer(bill, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        elif request.method == 'DELETE':
+            bill.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
