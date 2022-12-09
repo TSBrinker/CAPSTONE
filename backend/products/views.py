@@ -18,15 +18,15 @@ def get_products(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        products = Product.objects.filter(users__id=request.user.id)
+        products = Product.objects.filter(users__id=request.user.id) | Product.objects.filter(secondary_users__id=request.user.id)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def update_product(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if product.user.id == request.user.id:
+    product = get_object_or_404(Product, pk=pk) 
+    if request.user in product.users.all():
         if request.method == 'PUT':
             serializer = ProductSerializer(product, data=request.data)
             serializer.is_valid(raise_exception=True)
