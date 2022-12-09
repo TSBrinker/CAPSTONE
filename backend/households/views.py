@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Household
 from .serializers import HouseholdSerializer
 from django.shortcuts import get_object_or_404
+from authentication.models import User
+from authentication.serializers import RegistrationSerializer
 
 
 # Create your views here.
@@ -43,3 +45,10 @@ def update_household(request, pk):
     elif request.method == 'DELETE':
         household.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_housemates(request):
+    housemates = User.objects.filter(household_id = request.user.household_id)
+    serializer = RegistrationSerializer(housemates, many=True)
+    return Response(serializer.data)
