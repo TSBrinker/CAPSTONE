@@ -1,5 +1,12 @@
 // General Imports
 import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import useAuth from "./hooks/useAuth";
+
+import "bootswatch/dist/darkly/bootstrap.min.css";
+// TODO: Note: Replace ^[theme]^ (examples: darkly, slate, cosmo, spacelab, and superhero. See https://bootswatch.com/ for current theme names.)
+
 import "./App.css";
 
 // Pages Imports
@@ -15,9 +22,25 @@ import Footer from "./components/Footer/Footer";
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
+  const [user, token] = useAuth();
+  const [household, setHousehold] = useState({});
+
+  async function getHousehold() {
+    let response = await axios.get("http://127.0.0.1:8000/api/households/", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    setHousehold(response.data);
+  }
+
+  useEffect(() => {
+    getHousehold();
+  }, [user]);
+
   return (
     <div>
-      <Navbar />
+      <Navbar household={household} />
       <Routes>
         <Route
           path="/"

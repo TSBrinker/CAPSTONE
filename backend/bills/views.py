@@ -14,11 +14,13 @@ def user_bills(request):
     if request.method == 'POST':
         serializer = BillSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner = request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        bills = Bill.objects.filter(users__id=request.user.id) | Bill.objects.filter(secondary_users__id=request.user.id)
+        billsIMade = Bill.objects.filter(owner_id=request.user.id)
+        billsIReceived =  Bill.objects.filter(users__id=request.user.id)
+        bills = billsIMade.union(billsIReceived)
         serializer = BillSerializer(bills, many=True)
         return Response(serializer.data)
 
