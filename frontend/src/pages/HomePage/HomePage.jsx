@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import BillList from "../../components/BillList/BillList";
 import axios from "axios";
+import { Container } from "react-bootstrap";
 
-const HomePage = () => {
+const HomePage = ({ getHousehold }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
@@ -26,10 +27,18 @@ const HomePage = () => {
   //   fetchCars();
   // }, [token]);
 
-  return (
+  return user.household_id ? (
     <div>
       <h1>Home Page for {user.username}!</h1>
       <BillList />
+    </div>
+  ) : (
+    <div>
+      <h1>Welcome, {user.username}!</h1>
+      <Container>
+        <div>Create Household</div>
+        <div>Join Household</div>
+      </Container>
     </div>
   );
 };

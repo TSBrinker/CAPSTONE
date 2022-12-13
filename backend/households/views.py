@@ -24,7 +24,9 @@ def get_all_households(request):
 def user_household(request):
     if request.method == 'POST':
         serializer = HouseholdSerializer(data=request.data)
+        print(serializer.initial_data)
         if serializer.is_valid():
+            print(request.user.id)
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -52,3 +54,16 @@ def get_housemates(request):
     housemates = User.objects.filter(household_id = request.user.household_id)
     serializer = RegistrationSerializer(housemates, many=True)
     return Response(serializer.data)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def add_user_to_household(request, pk):
+    household = get_object_or_404(Household, pk=pk)
+    household_users = User.objects.filter(household_id=pk)
+    if not household_users:
+        user = get_object_or_404(User, pk=request.user.id)
+        serializer = RegistrationSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(household_id=household, is_admin_flag=True)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Container } from "react-bootstrap";
-import EditBillForm from "../EditBillForm/EditBillForm";
+import EditBillForm from "../../forms/EditBillForm/EditBillForm";
 import axios from "axios";
 
 const Bill = ({ bill, i, bills }) => {

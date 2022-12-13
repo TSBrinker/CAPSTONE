@@ -46,7 +46,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage />
+              <HomePage getHousehold={getHousehold} />
             </PrivateRoute>
           }
         />
