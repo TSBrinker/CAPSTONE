@@ -64,6 +64,17 @@ const RegisterPage = () => {
             onChange={handleInputChange}
           />
         </label>
+
+        {/* <label>
+          Household ID:{""}
+          <input
+            type="number"
+            name="household_id"
+            hidden
+            value={formData.household_id}
+            default
+          />
+        </label> */}
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!

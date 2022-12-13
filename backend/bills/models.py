@@ -6,7 +6,7 @@ import datetime
 
 class Bill(models.Model):
     owner = models.ForeignKey(User, on_delete=models.DO_NOTHING) 
-    users = models.ManyToManyField(User, blank=True, default=None, related_name="bill_secondaries")
+    users = models.ManyToManyField(User, blank=True, default=None, related_name="bill_participant")
     name = models.CharField(max_length=30) 
     payee = models.CharField(max_length=50)
     amount = models.DecimalField(max_digits=6, decimal_places=2)

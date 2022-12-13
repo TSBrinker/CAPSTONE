@@ -3,6 +3,7 @@ from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from .models import User
+from .models import Household
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -25,13 +26,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
+    household_id = serializers.IntegerField(write_only=True, required=False)
 
     class Meta:
         model = User
         # If added new columns through the User model, add them in the fields
         # list as seen below
         fields = ('username', 'password', 'email',
-                  'first_name', 'last_name', 'household_id', 'is_admin_flag')
+                  'first_name', 'last_name','household','household_id', 'is_admin_flag')
 
     def create(self, validated_data):
 
@@ -44,8 +46,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
             # If added new columns through the User model, add them in this
             # create method. Example below:
 
-            household_id=validated_data['household_id'],
-            is_admin_flag=validated_data['is_admin_flag']
         )
         user.set_password(validated_data['password'])
         user.save()

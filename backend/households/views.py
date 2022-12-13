@@ -31,7 +31,7 @@ def user_household(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        household = request.user.household_id
+        household = request.user.household
         serializer = HouseholdSerializer(household)
         return Response(serializer.data)
 

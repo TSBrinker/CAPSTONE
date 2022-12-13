@@ -14,5 +14,5 @@ class User(AbstractUser):
     '''
     # Example (note import of models above that is commented out)
     # this will add a column to the user table
-    household_id = models.ForeignKey(Household, default=None, blank=True, null=True, on_delete=models.PROTECT)
-    is_admin_flag = models.BooleanField(default=False)
+    household = models.ForeignKey(Household, default=None, blank=True, null=True, on_delete=models.PROTECT)
+    is_admin_flag = models.BooleanField(default=False, blank=True)
