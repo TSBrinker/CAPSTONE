@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "./hooks/useAuth";
 
-import "bootswatch/dist/darkly/bootstrap.min.css";
+import "bootswatch/dist/cerulean/bootstrap.min.css";
 // TODO: Note: Replace ^[theme]^ (examples: darkly, slate, cosmo, spacelab, and superhero. See https://bootswatch.com/ for current theme names.)
 
 import "./App.css";
@@ -36,11 +36,14 @@ function App() {
 
   useEffect(() => {
     getHousehold();
+    if (!user) {
+      setHousehold(null);
+    }
   }, [user]);
 
   return (
     <div>
-      <Navbar household={household} />
+      <Navbar household={household} setHousehold={setHousehold} />
       <Routes>
         <Route
           path="/"

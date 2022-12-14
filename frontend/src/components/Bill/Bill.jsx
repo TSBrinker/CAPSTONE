@@ -63,13 +63,8 @@ const Bill = ({ bill, i, bills }) => {
     balance = 0;
   }
 
-  console.log(`
-  Let's break down the total due for ${bill.payee}\n
-  The amount due is ${bill.amount}
-  `);
-
   return (
-    <div className={`card mb-3 border-primary`}>
+    <div className={`card mb-3 border-primary`} style="max-width: 20rem">
       <div className="card-header">
         {bill.payee}({bill.id})
       </div>

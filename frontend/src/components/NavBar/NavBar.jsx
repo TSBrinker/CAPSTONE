@@ -4,15 +4,33 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 
-const Navbar = ({ household }) => {
+const Navbar = ({ household, setHousehold }) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
-  return (
+
+  return household ? (
     <div className="navBar navbar-expand-lg navbar-dark bg-dark">
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <b>{household.name}</b>
+          </Link>
+        </li>
+        <li>
+          {user ? (
+            <button onClick={logoutUser}>Logout</button>
+          ) : (
+            <button onClick={() => navigate("/login")}>Login</button>
+          )}
+        </li>
+      </ul>
+    </div>
+  ) : (
+    <div className="navBar navbar-expand-lg navbar-dark bg-dark">
+      <ul>
+        <li className="brand">
+          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <b>Household</b>
           </Link>
         </li>
         <li>

@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export default AuthContext;
 
+// debugger;
 function setUserObject(user) {
   if (!user) {
     return null;
@@ -15,6 +16,8 @@ function setUserObject(user) {
     username: user.username,
     id: user.user_id,
     first_name: user.first_name,
+    last_name: user.last_name,
+    household_id: user.household_id
   };
 }
 

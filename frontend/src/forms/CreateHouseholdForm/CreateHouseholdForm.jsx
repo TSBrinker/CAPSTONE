@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Form } from "react-bootstrap";
 
-const CreateHouseholdForm = ({ getHousehold }) => {
+const CreateHouseholdForm = ({ getHousehold, setHouseholdID }) => {
   const [householdName, setHouseholdName] = useState("");
   const [householdAddress, setHouseholdAddress] = useState("");
   const [householdZip, setHouseholdZip] = useState("");
@@ -35,6 +35,7 @@ const CreateHouseholdForm = ({ getHousehold }) => {
         }
       );
       if ((response2.status = 202)) {
+        setHouseholdID(response.data.id);
         await getHousehold();
       }
     }
