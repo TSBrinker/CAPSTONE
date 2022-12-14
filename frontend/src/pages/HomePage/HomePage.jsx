@@ -38,21 +38,21 @@ const HomePage = ({ getHousehold }) => {
   useEffect(() => {
     if (requests.length > 0) {
       setPendingRequests(true);
+      console.log("We got requests!");
     } else {
       setPendingRequests(false);
+      console.log("We got nothin");
     }
   }, [requests]);
 
   return householdID ? (
     <div>
+      <h1>Home Page for {user.username}!</h1>
       {pendingRequests ? (
         <div>
-          <JoinRequestList requests={requests} />
+          <JoinRequestList requests={requests} getRequests={getRequests} />
         </div>
-      ) : (
-        <div>No requests</div>
-      )}
-      <h1>Home Page for {user.username}!</h1>
+      ) : null}
       <BillList />
     </div>
   ) : (

@@ -33,16 +33,20 @@ def household_requests(request, hpk):
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-@api_view(['PATCH'])
+@api_view(['PATCH', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def approve_request(request, pk):
+def handle_request(request, pk):
     join_request = get_object_or_404(JoinRequest, pk=pk)
     user = get_object_or_404(User, pk=join_request.user.id)
     if request.user.is_admin and request.user.household_id == join_request.household_id:
-        serializer = RegistrationSerializer(user, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(household_id=join_request.household_id, is_admin=False)
-        join_request.delete()
-        return Response(status=status.HTTP_202_ACCEPTED)
+        if request.method == 'PATCH':
+            serializer = RegistrationSerializer(user, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(household_id=join_request.household_id, is_admin=False)
+            join_request.delete()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        elif request.method == 'DELETE':
+            join_request.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
     else:
         return Response(status=status.HTTP_403_FORBIDDEN)
