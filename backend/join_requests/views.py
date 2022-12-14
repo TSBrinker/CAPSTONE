@@ -24,5 +24,9 @@ def household_requests(request, hpk):
             requests = JoinRequest.objects.filter(household=hpk)
             serializer = JoinRequestSerializer(requests, many=True)
             return Response(serializer.data)
+        elif not request.user.household:
+            requests = JoinRequest.objects.filter(user = request.user)
+            serializer = JoinRequestSerializer(requests, many=True)
+            return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)

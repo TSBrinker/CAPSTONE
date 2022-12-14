@@ -50,9 +50,7 @@ const CreateHouseholdForm = ({ getHousehold, setHouseholdID }) => {
     <form>
       <fieldset>
         <div className="form-group">
-          <label for="inputHouseholdName" className="form-label mt-4">
-            Household Name
-          </label>
+          <label className="form-label mt-4">Household Name</label>
           <input
             type="text"
             className="form-control"
@@ -63,9 +61,7 @@ const CreateHouseholdForm = ({ getHousehold, setHouseholdID }) => {
           ></input>
         </div>
         <div className="form-group">
-          <label for="inputHouseholdAddress" className="form-label mt-4">
-            Address
-          </label>
+          <label className="form-label mt-4">Address</label>
           <input
             type="text"
             className="form-control"
@@ -76,9 +72,7 @@ const CreateHouseholdForm = ({ getHousehold, setHouseholdID }) => {
           ></input>
         </div>
         <div className="form-group">
-          <label for="inputHouseholdZip" className="form-label mt-4">
-            ZIP Code
-          </label>
+          <label className="form-label mt-4">ZIP Code</label>
           <input
             type="text"
             className="form-control"

@@ -51,7 +51,7 @@ const FindHouseholdForm = ({}) => {
     filterHouseholds();
   }
 
-  console.dir(filteredHouseholds);
+  // console.dir(filteredHouseholds);
 
   // if query is anything, return search results
   //if query is anything and results.length = 0, "sorry, nothing found!"
@@ -59,12 +59,12 @@ const FindHouseholdForm = ({}) => {
 
   return (
     <div>
-      <form onSubmit={handleSearch} class="d-flex">
+      <form onSubmit={handleSearch} className="d-flex">
         <input
           value={addressQuery}
           onChange={(event) => setAddressQuery(event.target.value)}
           required
-          class="form-control me-sm-2"
+          className="form-control me-sm-2"
           type="search"
           placeholder="Address"
         />
@@ -72,11 +72,11 @@ const FindHouseholdForm = ({}) => {
           value={zipQuery}
           onChange={(event) => setZipQuery(event.target.value)}
           required
-          class="form-control me-sm-2"
+          className="form-control me-sm-2"
           type="search"
           placeholder="ZIP Code"
         />
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+        <button className="btn btn-secondary my-2 my-sm-0" type="submit">
           Search
         </button>
       </form>

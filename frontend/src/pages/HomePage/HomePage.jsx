@@ -7,7 +7,7 @@ import { Container, Modal } from "react-bootstrap";
 import CreateHouseholdForm from "../../forms/CreateHouseholdForm/CreateHouseholdForm";
 import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
 
-const HomePage = ({ household, getHousehold }) => {
+const HomePage = ({ getHousehold }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
