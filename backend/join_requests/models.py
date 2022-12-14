@@ -7,5 +7,3 @@ from households.models import Household
 class JoinRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     household = models.ForeignKey(Household, on_delete=models.CASCADE)
-    is_approved = models.BooleanField(default=False)
-    is_denied = models.BooleanField(default=False)

@@ -5,6 +5,5 @@ from households.models import Household
 # Create your models here.
 
 class JoinInvite(models.Model):
-    invite_number = models.IntegerField()
+    invite_number = models.CharField(max_length=8, null=True)
     household = models.ForeignKey(Household, on_delete=models.CASCADE)
-    is_accepted = models.BooleanField(default=False)

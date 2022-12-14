@@ -27,5 +27,5 @@ urlpatterns = [
     path('api/categories/', include('categories.urls')),
     path('api/purchases/', include('purchases.urls')),
     path('api/join_requests/', include('join_requests.urls')),
-    # path('api/join_invites/', include('join_invites.urls')),
+    path('api/join_invites/', include('join_invites.urls')),
 ]
