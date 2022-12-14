@@ -4,8 +4,7 @@ from households.models import Household
 
 # Create your models here.
 
-class JoinRequest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class JoinInvite(models.Model):
+    invite_number = models.IntegerField()
     household = models.ForeignKey(Household, on_delete=models.CASCADE)
-    is_approved = models.BooleanField(default=False)
-    is_denied = models.BooleanField(default=False)
+    is_accepted = models.BooleanField(default=False)

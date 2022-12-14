@@ -8,4 +8,5 @@ urlpatterns = [
     path('all/', views.get_all_households),
     path('<int:pk>/', views.update_household),
     path('<int:pk>/first_user/', views.add_user_to_household),
+    path('<int:hpk>/join_requests/', include('join_requests.urls')),
 ]

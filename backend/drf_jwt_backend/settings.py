@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'categories',
     'bills',
     'payments',
-    'purchases'
+    'purchases',
+    'join_requests',
+    'join_invites',
 ]
 
 MIDDLEWARE = [
