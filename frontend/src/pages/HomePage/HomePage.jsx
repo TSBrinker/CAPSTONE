@@ -6,6 +6,7 @@ import axios from "axios";
 import { Container, Modal } from "react-bootstrap";
 import CreateHouseholdForm from "../../forms/CreateHouseholdForm/CreateHouseholdForm";
 import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
+import JoinRequestList from "../../components/JoinRequestList/JoinRequestList";
 
 const HomePage = ({ getHousehold }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -13,30 +14,44 @@ const HomePage = ({ getHousehold }) => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [householdID, setHouseholdID] = useState(user.household_id);
+  const [pendingRequests, setPendingRequests] = useState(true);
+  const [requests, setRequests] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchCars = async () => {
-  //     try {
-  //       let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-  //         headers: {
-  //           Authorization: "Bearer " + token,
-  //         },
-  //       });
-  //       setCars(response.data);
-  //     } catch (error) {
-  //       console.log(error.response.data);
-  //     }
-  //   };
-  //   fetchCars();
-  // }, [token]);
-  // console.log(
-  //   `user: ${user.id}, ${user.username}, ${user.first_name} ${user.email}`
-  // );
-  // console.log(`household.name: ${household.name}, id: ${household.id}`);
-  // console.log(`user.username: ${user.username}`);
+  async function getRequests() {
+    let response = await axios.get(
+      `http://127.0.0.1:8000/api/households/${householdID}/join_requests/`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if ((response.status = 201)) {
+      setRequests(response.data);
+    }
+  }
+
+  useEffect(() => {
+    getRequests();
+  }, []);
+
+  useEffect(() => {
+    if (requests.length > 0) {
+      setPendingRequests(true);
+    } else {
+      setPendingRequests(false);
+    }
+  }, [requests]);
 
   return householdID ? (
     <div>
+      {pendingRequests ? (
+        <div>
+          <JoinRequestList requests={requests} />
+        </div>
+      ) : (
+        <div>No requests</div>
+      )}
       <h1>Home Page for {user.username}!</h1>
       <BillList />
     </div>
@@ -62,3 +77,24 @@ const HomePage = ({ getHousehold }) => {
 };
 
 export default HomePage;
+
+// useEffect(() => {
+//   const fetchCars = async () => {
+//     try {
+//       let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
+//         headers: {
+//           Authorization: "Bearer " + token,
+//         },
+//       });
+//       setCars(response.data);
+//     } catch (error) {
+//       console.log(error.response.data);
+//     }
+//   };
+//   fetchCars();
+// }, [token]);
+// console.log(
+//   `user: ${user.id}, ${user.username}, ${user.first_name} ${user.email}`
+// );
+// console.log(`household.name: ${household.name}, id: ${household.id}`);
+// console.log(`user.username: ${user.username}`);

@@ -6,6 +6,8 @@ from .models import JoinRequest
 from .serializers import JoinRequestSerializer
 from django.shortcuts import get_object_or_404
 from households.models import Household
+from authentication.serializers import RegistrationSerializer
+from authentication.models import User
 
 # Create your views here.
 
@@ -30,3 +32,17 @@ def household_requests(request, hpk):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def approve_request(request, pk):
+    join_request = get_object_or_404(JoinRequest, pk=pk)
+    user = get_object_or_404(User, pk=join_request.user.id)
+    if request.user.is_admin and request.user.household_id == join_request.household_id:
+        serializer = RegistrationSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(household_id=join_request.household_id, is_admin=False)
+        join_request.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)

@@ -64,6 +64,6 @@ def add_user_to_household(request, pk):
         user = get_object_or_404(User, pk=request.user.id)
         serializer = RegistrationSerializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save(household_id=household, is_admin_flag=True)
+        serializer.save(household_id=household, is_admin=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
     return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)

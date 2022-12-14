@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import JoinRequest from "../JoinRequest/JoinRequest";
+import JoinRequestButton from "../JoinRequestButton/JoinRequestButton";
 
 const HouseholdCard = ({ household, index }) => {
   return (
@@ -9,7 +9,7 @@ const HouseholdCard = ({ household, index }) => {
       </div>
       <div class="card-body">
         <h4 class="card-title">{household.name}</h4>
-        <JoinRequest household={household} />
+        <JoinRequestButton household={household} />
       </div>
     </div>
   );
