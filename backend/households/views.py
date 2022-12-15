@@ -50,6 +50,17 @@ def update_household(request, pk):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def get_household_by_id(request, pk):
+    user = get_object_or_404(User, pk=request.user.id)
+    household = get_object_or_404(Household, pk=pk)
+    if household.id == user.household_id:
+        serializer = HouseholdSerializer(household)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_housemates(request):
     housemates = User.objects.filter(household_id = request.user.household_id)
     serializer = RegistrationSerializer(housemates, many=True)

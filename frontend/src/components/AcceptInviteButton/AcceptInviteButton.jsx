@@ -22,8 +22,10 @@ const AcceptInviteButton = ({
     );
 
     if ((response.status = 202)) {
-      setHouseholdID(household_id);
+      await setHouseholdID(household_id);
       await getHousehold();
+      console.log(response.data);
+      // await getHousehold(response);
     }
   }
 
@@ -34,7 +36,9 @@ const AcceptInviteButton = ({
 
   return (
     <div>
-      <button onClick={handleAcceptance}>WE JOININ' UP IN HERE</button>
+      <button className="btn btn-secondary" onClick={handleAcceptance}>
+        Join
+      </button>
     </div>
   );
 };

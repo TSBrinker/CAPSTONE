@@ -28,7 +28,7 @@ function App() {
   const [user, token] = useAuth();
   const [household, setHousehold] = useState({});
   const [pendingRequests, setPendingRequests] = useState(false);
-  const [householdID, setHouseholdID] = useState(0);
+  const [householdID, setHouseholdID] = useState({});
   const [requests, setRequests] = useState([]);
 
   async function getHousehold() {
@@ -41,15 +41,33 @@ function App() {
       });
       setHousehold(response.data);
       setHouseholdID(response.data.id);
+    } else if (householdID) {
+      try {
+        let response = await axios.get(
+          `http://127.0.0.1:8000/api/households/${householdID}/get/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response.data);
+        console.log("yay :D");
+        setHousehold(response.data);
+        setHouseholdID(response.data.id);
+      } catch {
+        console.log("didnt work :(");
+      }
     }
   }
   ///////////// Get the requests to join here so it can display a pill when there's a pending request
   useEffect(() => {
-    getHousehold();
-    if (!user) {
+    if (user) {
+      getHousehold();
+    } else {
       setHousehold({});
     }
-  }, []);
+  }, [householdID, user]);
   return (
     <div>
       <Navbar

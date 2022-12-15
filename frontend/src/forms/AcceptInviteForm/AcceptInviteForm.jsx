@@ -32,6 +32,10 @@ const AcceptInviteForm = ({ setHouseholdID, getHousehold }) => {
   //     setShowInvite(true);
   //   }, [invite]);
 
+  useEffect(() => {
+    getInvite();
+  }, [inviteNumber]);
+
   return (
     <div>
       <form onSubmit={handleSearch} className="d-flex">
@@ -43,7 +47,11 @@ const AcceptInviteForm = ({ setHouseholdID, getHousehold }) => {
           type="search"
           placeholder="12345678"
         />
-        <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+        <button
+          onClick={handleSearch}
+          className="btn btn-secondary my-2 my-sm-0"
+          type="submit"
+        >
           Find Invite
         </button>
       </form>
