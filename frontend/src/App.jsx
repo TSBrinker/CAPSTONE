@@ -27,6 +27,37 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   const [user, token] = useAuth();
   const [household, setHousehold] = useState({});
+  const [pendingRequests, setPendingRequests] = useState(true);
+  const [requests, setRequests] = useState([]);
+  const [householdID, setHouseholdID] = useState(null);
+
+  ///////////// Get the requests to join here so it can display a pill when there's a pending request
+
+  async function getRequests() {
+    let response = await axios.get(
+      `http://127.0.0.1:8000/api/households/${householdID}/join_requests/`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if ((response.status = 201)) {
+      setRequests(response.data);
+    }
+  }
+
+  useEffect(() => {
+    getRequests();
+  }, []);
+
+  useEffect(() => {
+    if (requests.length > 0) {
+      setPendingRequests(true);
+    } else {
+      setPendingRequests(false);
+    }
+  }, [requests]);
 
   async function getHousehold() {
     let response = await axios.get("http://127.0.0.1:8000/api/households/", {
@@ -46,13 +77,24 @@ function App() {
 
   return (
     <div>
-      <Navbar household={household} setHousehold={setHousehold} />
+      <Navbar
+        household={household}
+        setHousehold={setHousehold}
+        requests_amount={requests.length}
+        pendingRequests={pendingRequests}
+      />
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <HomePage household={household} getHousehold={getHousehold} />
+              <HomePage
+                household={household}
+                getHousehold={getHousehold}
+                setHouseholdID={setHouseholdID}
+                householdID={householdID}
+                getRequests={getRequests}
+              />
             </PrivateRoute>
           }
         />
@@ -76,7 +118,11 @@ function App() {
           path="/household"
           element={
             <PrivateRoute>
-              <HouseholdPage />
+              <HouseholdPage
+                requests={requests}
+                getRequests={getRequests}
+                pendingRequests={pendingRequests}
+              />
             </PrivateRoute>
           }
         />

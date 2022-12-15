@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 
-const Navbar = ({ household }) => {
+const Navbar = ({ household, requests_amount, pendingRequests }) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [badgeNumber, setBadgeNumber] = useState(0);
+  const [displayBadge, setDisplayBadge] = useState("");
+
+  useEffect(() => {
+    if (requests_amount == 0) {
+      setDisplayBadge("");
+    } else if (requests_amount > 0) {
+      setDisplayBadge("badge rounded-pill bg-info");
+      setBadgeNumber(requests_amount);
+    }
+  }, [requests_amount]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -23,7 +35,7 @@ const Navbar = ({ household }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className={`navbar-toggler-icon ${displayBadge}`}></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav me-auto">
@@ -34,14 +46,14 @@ const Navbar = ({ household }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Features
-              </a>
+              <Link to="/bills" className="nav-link">
+                Bills
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Pricing
-              </a>
+              <Link to="/inventory" className="nav-link" href="#">
+                Inventory
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">

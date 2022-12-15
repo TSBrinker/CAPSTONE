@@ -8,53 +8,23 @@ import CreateHouseholdForm from "../../forms/CreateHouseholdForm/CreateHousehold
 import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
 import JoinRequestList from "../../components/JoinRequestList/JoinRequestList";
 import AcceptInviteForm from "../../forms/AcceptInviteForm/AcceptInviteForm";
+import ResidentsList from "../../components/ResidentsList/ResidentsList";
 
-const HomePage = ({ getHousehold, household }) => {
+const HomePage = ({ getHousehold, household, setHouseholdID, getRequests }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
-  const [householdID, setHouseholdID] = useState(user.household_id);
   const [pendingRequests, setPendingRequests] = useState(true);
   const [requests, setRequests] = useState([]);
 
-  async function getRequests() {
-    let response = await axios.get(
-      `http://127.0.0.1:8000/api/households/${householdID}/join_requests/`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    if ((response.status = 201)) {
-      setRequests(response.data);
-    }
-  }
-
-  useEffect(() => {
-    getRequests();
-  }, []);
-
-  useEffect(() => {
-    if (requests.length > 0) {
-      setPendingRequests(true);
-    } else {
-      setPendingRequests(false);
-    }
-  }, [requests]);
+  // setHouseholdID(user.household_id);
 
   return household ? (
     <div className="text-center">
       <h1>{household.name}</h1>
-      <p>
-        <i>Schmidt, Nick, Coach, Jess, and Winston</i>
-      </p>
-      {pendingRequests ? (
-        <div>
-          <JoinRequestList requests={requests} getRequests={getRequests} />
-        </div>
-      ) : null}
+      <p className="lead">{household.address}</p>
+      <ResidentsList />
       <BillList />
     </div>
   ) : (
