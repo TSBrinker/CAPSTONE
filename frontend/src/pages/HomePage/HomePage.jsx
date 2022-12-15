@@ -7,6 +7,7 @@ import { Container, Modal } from "react-bootstrap";
 import CreateHouseholdForm from "../../forms/CreateHouseholdForm/CreateHouseholdForm";
 import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
 import JoinRequestList from "../../components/JoinRequestList/JoinRequestList";
+import AcceptInviteForm from "../../forms/AcceptInviteForm/AcceptInviteForm";
 
 const HomePage = ({ getHousehold }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -59,6 +60,14 @@ const HomePage = ({ getHousehold }) => {
     <div>
       <h1>Welcome, {user.username}!</h1>
       <Container>
+        <div className="border border-3 rounded border-primary p-3">
+          <p>Enter an Invite Number</p>
+          <AcceptInviteForm
+            setHouseholdID={setHouseholdID}
+            getHousehold={getHousehold}
+          />
+        </div>
+        <p>------ or ------</p>
         <div className="border border-3 rounded border-primary p-3">
           <p>Find a Household to Join</p>
           <FindHouseholdForm />
