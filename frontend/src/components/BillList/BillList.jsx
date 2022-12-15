@@ -21,8 +21,6 @@ const BillList = ({}) => {
     getBills();
   }, [token]);
 
-  console.log(`There are ${bills.length} bills on the list`);
-
   if (bills) {
     return bills.map((bill, i) => {
       return (

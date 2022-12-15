@@ -27,59 +27,33 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   const [user, token] = useAuth();
   const [household, setHousehold] = useState({});
-  const [pendingRequests, setPendingRequests] = useState(true);
+  const [pendingRequests, setPendingRequests] = useState(false);
+  const [householdID, setHouseholdID] = useState(0);
   const [requests, setRequests] = useState([]);
-  const [householdID, setHouseholdID] = useState(null);
 
-  ///////////// Get the requests to join here so it can display a pill when there's a pending request
-
-  async function getRequests() {
-    let response = await axios.get(
-      `http://127.0.0.1:8000/api/households/${householdID}/join_requests/`,
-      {
+  async function getHousehold() {
+    if (user.household_id) {
+      console.log("I'm getting a household at App.36");
+      let response = await axios.get("http://127.0.0.1:8000/api/households/", {
         headers: {
           Authorization: "Bearer " + token,
         },
-      }
-    );
-    if ((response.status = 201)) {
-      setRequests(response.data);
+      });
+      setHousehold(response.data);
+      setHouseholdID(response.data.id);
     }
   }
-
-  useEffect(() => {
-    getRequests();
-  }, []);
-
-  useEffect(() => {
-    if (requests.length > 0) {
-      setPendingRequests(true);
-    } else {
-      setPendingRequests(false);
-    }
-  }, [requests]);
-
-  async function getHousehold() {
-    let response = await axios.get("http://127.0.0.1:8000/api/households/", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-    setHousehold(response.data);
-  }
-
+  ///////////// Get the requests to join here so it can display a pill when there's a pending request
   useEffect(() => {
     getHousehold();
     if (!user) {
-      setHousehold(null);
+      setHousehold({});
     }
-  }, [user]);
-
+  }, []);
   return (
     <div>
       <Navbar
         household={household}
-        setHousehold={setHousehold}
         requests_amount={requests.length}
         pendingRequests={pendingRequests}
       />
@@ -93,7 +67,6 @@ function App() {
                 getHousehold={getHousehold}
                 setHouseholdID={setHouseholdID}
                 householdID={householdID}
-                getRequests={getRequests}
               />
             </PrivateRoute>
           }
@@ -120,8 +93,9 @@ function App() {
             <PrivateRoute>
               <HouseholdPage
                 requests={requests}
-                getRequests={getRequests}
+                setRequests={setRequests}
                 pendingRequests={pendingRequests}
+                setPendingRequests={setPendingRequests}
               />
             </PrivateRoute>
           }

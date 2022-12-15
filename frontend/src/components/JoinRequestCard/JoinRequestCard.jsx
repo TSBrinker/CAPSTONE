@@ -5,9 +5,23 @@ import useAuth from "../../hooks/useAuth";
 const JoinRequestCard = ({ request, getRequests }) => {
   const [user, token] = useAuth();
 
+  // async function approveRequest() {
+  //   console.log("I'm trying to approve this request!");
+  //   let response = await axios.patch(
+  //     `http://127.0.0.1:8000/api/join_requests/${request.id}/`,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + token,
+  //       },
+  //     }
+  //   );
+  //   console.log(response.status, response.statusText);
+  //   await getRequests();
+  // }
   async function approveRequest() {
     await axios.patch(
       `http://127.0.0.1:8000/api/join_requests/${request.id}/`,
+      {},
       {
         headers: {
           Authorization: "Bearer " + token,

@@ -8,7 +8,7 @@ const HouseholdSearchResults = ({ filteredHouseholds }) => {
     filteredHouseholds.map((household, index) => {
       return (
         <div className="margin-auto">
-          <HouseholdCard household={household} />;
+          <HouseholdCard household={household} />
         </div>
       );
     })

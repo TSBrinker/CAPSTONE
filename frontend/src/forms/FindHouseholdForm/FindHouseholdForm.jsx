@@ -9,9 +9,6 @@ const FindHouseholdForm = ({}) => {
   const [addressQuery, setAddressQuery] = useState("");
   const [zipQuery, setZipQuery] = useState("");
   const [filteredHouseholds, setFilteredHouseholds] = useState([]);
-  const [householdAddress, setHouseholdAddress] = useState("");
-  const [householdZIP, setHouseholdZIP] = useState();
-  const [showResults, setShowResults] = useState(false);
   const [user, token] = useAuth();
   let query = addressQuery + zipQuery;
 

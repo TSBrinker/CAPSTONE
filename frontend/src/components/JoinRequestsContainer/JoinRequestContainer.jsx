@@ -3,10 +3,24 @@ import JoinRequestList from "../JoinRequestList/JoinRequestList";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const JoinRequestContainer = ({ requests, getRequests }) => {
+const JoinRequestContainer = ({
+  pendingRequests,
+  setPendingRequests,
+  requests,
+  setRequests,
+}) => {
   const [user, token] = useAuth();
 
-  return <JoinRequestList requests={requests} getRequests={getRequests} />;
+  return (
+    <div className="border">
+      <JoinRequestList
+        requests={requests}
+        setRequests={setRequests}
+        pendingRequests={pendingRequests}
+        setPendingRequests={setPendingRequests}
+      />
+    </div>
+  );
 };
 
 export default JoinRequestContainer;

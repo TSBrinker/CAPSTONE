@@ -18,9 +18,19 @@ const HomePage = ({ getHousehold, household, setHouseholdID, getRequests }) => {
   const [pendingRequests, setPendingRequests] = useState(true);
   const [requests, setRequests] = useState([]);
 
-  // setHouseholdID(user.household_id);
+  useEffect(() => {
+    getHousehold();
+  }, []);
 
-  return household ? (
+  if (household == {}) {
+    console.log(`we got a household here!`);
+    console.dir(household);
+  } else {
+    console.log("no household :(");
+  }
+  console.log(user);
+
+  return user.household_id ? (
     <div className="text-center">
       <h1>{household.name}</h1>
       <p className="lead">{household.address}</p>

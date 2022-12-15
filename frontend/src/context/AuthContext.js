@@ -17,7 +17,8 @@ function setUserObject(user) {
     id: user.user_id,
     first_name: user.first_name,
     last_name: user.last_name,
-    household_id: user.household_id
+    household_id: user.household_id,
+    is_admin:user.is_admin
   };
 }
 
