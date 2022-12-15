@@ -9,7 +9,7 @@ import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
 import JoinRequestList from "../../components/JoinRequestList/JoinRequestList";
 import AcceptInviteForm from "../../forms/AcceptInviteForm/AcceptInviteForm";
 
-const HomePage = ({ getHousehold }) => {
+const HomePage = ({ getHousehold, household }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
@@ -39,16 +39,17 @@ const HomePage = ({ getHousehold }) => {
   useEffect(() => {
     if (requests.length > 0) {
       setPendingRequests(true);
-      console.log("We got requests!");
     } else {
       setPendingRequests(false);
-      console.log("We got nothin");
     }
   }, [requests]);
 
   return householdID ? (
-    <div>
-      <h1>Home Page for {user.username}!</h1>
+    <div className="text-center">
+      <h1>{household.name}</h1>
+      <p>
+        <i>Schmidt, Nick, Coach, Jess, and Winston</i>
+      </p>
       {pendingRequests ? (
         <div>
           <JoinRequestList requests={requests} getRequests={getRequests} />

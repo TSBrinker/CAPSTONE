@@ -30,7 +30,7 @@ const AcceptInviteCard = ({ inviteNumber, setHouseholdID, getHousehold }) => {
 
   return showInvite ? (
     <div>
-      <div>Ya wanna join {invite.household.name}?</div>
+      <div>Accept invitation from {invite.household.name}?</div>
       <div>
         <AcceptInviteButton
           inviteNumber={inviteNumber}

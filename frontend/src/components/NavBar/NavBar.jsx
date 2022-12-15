@@ -13,7 +13,7 @@ const Navbar = ({ household, setHousehold }) => {
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>{household.name}</b>
+            <b>Household</b>
           </Link>
         </li>
         <li>
