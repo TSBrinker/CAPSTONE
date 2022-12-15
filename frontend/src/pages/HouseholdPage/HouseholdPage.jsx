@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const HouseholdPage = ({}) => {
+  //bring join requests here in their own div
+  //create div for
+
   return (
     <ul>
       <li>See household members</li>

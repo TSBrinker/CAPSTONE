@@ -44,7 +44,7 @@ const HomePage = ({ getHousehold, household }) => {
     }
   }, [requests]);
 
-  return householdID ? (
+  return household ? (
     <div className="text-center">
       <h1>{household.name}</h1>
       <p>

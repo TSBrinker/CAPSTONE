@@ -15,6 +15,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import BillsPage from "./pages/BillsPage/BillsPage";
 import InventoryPage from "./pages/InventoryPage/InventoryPage";
+import HouseholdPage from "./pages/HouseholdPage/HouseholdPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -22,7 +23,6 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
-import HouseholdPage from "./pages/HouseholdPage/HouseholdPage";
 
 function App() {
   const [user, token] = useAuth();

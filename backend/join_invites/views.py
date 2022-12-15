@@ -21,11 +21,16 @@ def household_invites(request, hpk):
         invite_number = str(random.randint(10000000, 99999999))
 
         if request.method == 'POST':
-            serializer = JoinInviteSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(invite_number=invite_number, household=household)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            existing_invites=JoinInvite.objects.filter(household_id=household.id)
+            if len(existing_invites) < 3:
+                serializer = JoinInviteSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save(invite_number=invite_number, household=household)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(status=status.HTTP_429_TOO_MANY_REQUESTS)
         elif request.method == 'GET':
             if request.user.household == household and request.user.is_admin:
                 requests = JoinInvite.objects.filter(household=hpk)
