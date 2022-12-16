@@ -4,22 +4,8 @@ import Bill from "../Bill/Bill";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const BillList = ({}) => {
+const BillList = ({ bills }) => {
   const [user, token] = useAuth();
-  const [bills, setBills] = useState([]);
-
-  async function getBills() {
-    let response = await axios.get("http://127.0.0.1:8000/api/bills/", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-    setBills(response.data);
-  }
-
-  useEffect(() => {
-    getBills();
-  }, [token]);
 
   if (bills) {
     return bills.map((bill, i) => {

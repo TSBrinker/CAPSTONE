@@ -3,6 +3,7 @@ import BillList from "../../components/BillList/BillList";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import CreateBillForm from "../../forms/CreateBillForm/CreateBillForm";
+import CreateBillModal from "../../components/CreateBillModal/CreateBillModal";
 
 const BillsPage = ({}) => {
   const [user, token] = useAuth();
@@ -23,7 +24,8 @@ const BillsPage = ({}) => {
 
   return (
     <div>
-      <CreateBillForm />{" "}
+      <CreateBillModal getBills={getBills} />
+      <BillList bills={bills} />
       <div>
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">

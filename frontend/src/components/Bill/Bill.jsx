@@ -64,7 +64,7 @@ const Bill = ({ bill, i, bills }) => {
   }
 
   return (
-    <div className={`card mb-3 border-primary`} style="max-width: 20rem">
+    <div className={`card mb-3 border-primary`} style={{ maxWidth: "20rem" }}>
       <div className="card-header">
         {bill.payee}({bill.id})
       </div>

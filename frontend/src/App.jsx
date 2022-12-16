@@ -29,7 +29,7 @@ function App() {
   const [user, token] = useAuth();
   const [household, setHousehold] = useState({});
   const [pendingRequests, setPendingRequests] = useState(false);
-  const [householdID, setHouseholdID] = useState({});
+  const [householdID, setHouseholdID] = useState(0);
   const [requests, setRequests] = useState([]);
   const [admin, setAdmin] = useState(false);
 
@@ -52,23 +52,12 @@ function App() {
         },
       }
     );
-    console.log(response.data);
     if (response.data.is_admin) {
       setAdmin(true);
-      console.log("I'm an admin!");
     } else {
       setAdmin(false);
-      console.log("I'm no admin :(");
     }
   }
-
-  useEffect(() => {
-    getAdminStatus();
-  }, [household]);
-
-  console.log(admin);
-
-  ///////////// Get the requests to join here so it can display a pill when there's a pending request
   useEffect(() => {
     if (user) {
       getHousehold();
@@ -76,6 +65,14 @@ function App() {
       setHousehold({});
     }
   }, [householdID, user]);
+
+  useEffect(() => {
+    if (householdID > 0) {
+      getAdminStatus();
+    }
+  }, [household]);
+
+  ///////////// Get the requests to join here so it can display a pill when there's a pending request
   return (
     <div>
       <Navbar
