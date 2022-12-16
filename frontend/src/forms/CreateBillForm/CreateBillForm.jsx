@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import SplitWithResidentsList from "../../components/SplitWithResidentsList/SplitWithResidentsList";
 
-const CreateBillForm = ({ getBills, handleClose }) => {
+const CreateBillForm = ({ getBills, setShow, residents }) => {
   const [billName, setBillName] = useState("");
   const [billPayee, setBillPayee] = useState("");
   const [billAmount, setBillAmount] = useState(0.0);
-  const [billDueDate, setBillDueDate] = useState("");
+  const [billDueDate, setBillDueDate] = useState(new Date());
   const [billDescription, setBillDescription] = useState("");
   const [billIsSplit, setBillIsSplit] = useState(false);
+  const [multipleUsers, setMultipleUsers] = useState(false);
+  const [billUsers, setBillUsers] = useState([]);
   const [user, token] = useAuth();
 
-  ///I need to figure out how to add users in the manytomany field :(
+  const handleClose = (event) => {
+    event.preventDefault();
+    setShow(false);
+  };
+
   async function addBill() {
     let newBill = {
       name: billName,
@@ -20,6 +27,7 @@ const CreateBillForm = ({ getBills, handleClose }) => {
       due_date: billDueDate,
       description: billDescription,
       is_split: billIsSplit,
+      users: billUsers,
     };
 
     try {
@@ -40,8 +48,12 @@ const CreateBillForm = ({ getBills, handleClose }) => {
     }
   }
 
-  function handleCheck() {
+  function handleSplit() {
     setBillIsSplit(!billIsSplit);
+  }
+
+  function handleMultipleUsers() {
+    setMultipleUsers(!multipleUsers);
   }
 
   const handleSubmit = (event) => {
@@ -57,7 +69,7 @@ const CreateBillForm = ({ getBills, handleClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <fieldset>
         <div className="form-group">
           <label for="inputBillName" className="form-label mt-4">
@@ -100,7 +112,6 @@ const CreateBillForm = ({ getBills, handleClose }) => {
           />
         </div>
         {/* //////////////////////////// */}
-
         {/* //////////////////////////// */}
         <div className="form-group">
           <label className="form-label mt-4">Amount</label>
@@ -128,29 +139,59 @@ const CreateBillForm = ({ getBills, handleClose }) => {
             value={billDueDate}
           />
         </div>
-        <div class="form-check mt-3">
+        <div className="form-check mt-3">
           <input
-            class="form-check-input"
+            className="form-check-input"
             type="checkbox"
-            id="checkBillIsSplit"
-            onChange={() => handleCheck()}
-            value={billIsSplit}
+            id="checkMultipleUsers"
+            onChange={() => handleMultipleUsers()}
           />
-          <label class="form-check-label" for="flexCheckDefault">
-            Split Bill?
+          <label className="form-check-label" for="flexCheckDefault">
+            Add Housemates to this bill?
           </label>
-        </div>
-        {billIsSplit ? (
-          <div class="form-group">
-            i gotta figure out how to return a list of housemates here, and then
-            make each div clickable, and when the div gets clicked add that
-            housemate's id to a list
+        </div>{" "}
+        {multipleUsers ? (
+          <div className="card border-info p-2">
+            <SplitWithResidentsList
+              residents={residents}
+              billUsers={billUsers}
+              setBillUsers={setBillUsers}
+            />
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="checkBillIsSplit"
+                onChange={() => handleSplit()}
+                value={billIsSplit}
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                Split Bill?
+              </label>
+              <p className="text-muted blockquote-footer mt-2">
+                Splitting a bill will divide the total between yourself and
+                selected users, and any payments a user logs will only apply to
+                that user's portion.
+              </p>
+            </div>{" "}
           </div>
         ) : null}
         {/* //////////////////////////// */}
-        <button className="btn btn-secondary mt-3" type="submit">
-          Create
-        </button>
+        <div className="form-row">
+          <button
+            className="btn btn-secondary mt-3"
+            type="submit"
+            onClick={(event) => handleSubmit(event)}
+          >
+            Create
+          </button>
+          <button
+            className="btn btn-danger mt-3"
+            onClick={(event) => handleClose(event)}
+          >
+            Cancel
+          </button>
+        </div>
       </fieldset>
     </form>
   );

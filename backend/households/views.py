@@ -77,7 +77,8 @@ def get_household_by_id(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_housemates(request):
-    housemates = User.objects.filter(household_id = request.user.household_id)
+    user=get_object_or_404(User, pk=request.user.id)
+    housemates = User.objects.filter(household_id = user.household_id)
     serializer = RegistrationSerializer(housemates, many=True)
     return Response(serializer.data)
 

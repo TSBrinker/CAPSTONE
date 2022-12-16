@@ -11,7 +11,7 @@ class Bill(models.Model):
     payee = models.CharField(max_length=50)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     due_date = models.DateField()
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, null=True, blank=True)
     is_split = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
     creation_date = models.DateField(default=datetime.date.today)

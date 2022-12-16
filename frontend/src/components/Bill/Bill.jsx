@@ -3,8 +3,9 @@ import useAuth from "../../hooks/useAuth";
 import { Container } from "react-bootstrap";
 import EditBillForm from "../../forms/EditBillForm/EditBillForm";
 import axios from "axios";
+import BillDetailsModal from "../BillDetailsModal/BillDetailsModal";
 
-const Bill = ({ bill, i, bills }) => {
+const Bill = ({ bill, i, bills, getBills }) => {
   const [users, setUsers] = useState([]);
   const [user, token] = useAuth();
   const [payments, setPayments] = useState([]);
@@ -15,7 +16,8 @@ const Bill = ({ bill, i, bills }) => {
 
   if (bill.is_split) {
     let divisor = bill.users.length + 1;
-    portion = (portion / divisor + 0.01).toFixed(2);
+    portion = portion / divisor;
+    portion = Math.round(portion * 100) / 100;
   }
 
   async function getPayments() {
@@ -63,18 +65,19 @@ const Bill = ({ bill, i, bills }) => {
     balance = 0;
   }
 
-  return (
+  return bills.length > 0 ? (
     <div className={`card mb-3 border-primary`} style={{ maxWidth: "20rem" }}>
-      <div className="card-header">
-        {bill.payee}({bill.id})
-      </div>
+      <div className="card-header mt-3">{bill.name}</div>
       <div className="card-body">
-        <h4 className="card-title">{bill.description}</h4>
+        <h4 className="card-title">{bill.payee}</h4>
         <p className="card-text">
-          ${balance}, due {bill.due_date}
-        </p>
+          ${balance.toFixed(2)}, due {bill.due_date}
+        </p>{" "}
+        <BillDetailsModal bill={bill} getBills={getBills} />
       </div>
     </div>
+  ) : (
+    <div>You ain't got no bills to pay!</div>
   );
 };
 

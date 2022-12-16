@@ -32,6 +32,7 @@ function App() {
   const [householdID, setHouseholdID] = useState(0);
   const [requests, setRequests] = useState([]);
   const [admin, setAdmin] = useState(false);
+  const [residents, setResidents] = useState([]);
 
   async function getHousehold() {
     let response = await axios.get("http://127.0.0.1:8000/api/households/", {
@@ -41,6 +42,20 @@ function App() {
     });
     setHousehold(response.data);
     setHouseholdID(response.data.id);
+  }
+
+  async function getResidents() {
+    let response = await axios.get(
+      `http://127.0.0.1:8000/api/households/housemates/`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if ((response.status = 200)) {
+      setResidents(response.data);
+    }
   }
 
   async function getAdminStatus() {
@@ -72,6 +87,10 @@ function App() {
     }
   }, [household]);
 
+  useEffect(() => {
+    getResidents();
+  }, []);
+
   ///////////// Get the requests to join here so it can display a pill when there's a pending request
   return (
     <div>
@@ -90,6 +109,7 @@ function App() {
                 getHousehold={getHousehold}
                 setHouseholdID={setHouseholdID}
                 householdID={householdID}
+                residents={residents}
               />
             </PrivateRoute>
           }
@@ -98,7 +118,7 @@ function App() {
           path="/bills"
           element={
             <PrivateRoute>
-              <BillsPage />
+              <BillsPage residents={residents} />
             </PrivateRoute>
           }
         />
@@ -121,6 +141,7 @@ function App() {
                 setPendingRequests={setPendingRequests}
                 admin={admin}
                 householdID={householdID}
+                residents={residents}
               />
             </PrivateRoute>
           }

@@ -39,7 +39,6 @@ def update_bill(request, pk):
     if request.user == bill.owner:
         if request.method == 'PUT':
             bill.users.clear()
-            # bill.save()
             for user in request.data["users"]:
                 user_obj = User.objects.get(pk=user)
                 bill.users.add(user_obj)

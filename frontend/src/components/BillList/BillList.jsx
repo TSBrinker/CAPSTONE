@@ -4,14 +4,14 @@ import Bill from "../Bill/Bill";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const BillList = ({ bills }) => {
+const BillList = ({ bills, getBills }) => {
   const [user, token] = useAuth();
 
   return bills.length > 0 ? (
     bills.map((bill, i) => {
       return (
         <div>
-          <Bill bill={bill} i={i} bills={bills} />
+          <Bill bill={bill} i={i} bills={bills} getBills={getBills} />
         </div>
       );
     })

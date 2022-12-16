@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import CreateBillForm from "../../forms/CreateBillForm/CreateBillForm";
 import CreateBillModal from "../../components/CreateBillModal/CreateBillModal";
 
-const BillsPage = ({}) => {
+const BillsPage = ({ residents }) => {
   const [user, token] = useAuth();
   const [bills, setBills] = useState([]);
 
@@ -24,8 +24,8 @@ const BillsPage = ({}) => {
 
   return (
     <div>
-      <CreateBillModal getBills={getBills} />
-      <BillList bills={bills} />
+      <CreateBillModal getBills={getBills} residents={residents} />
+      <BillList bills={bills} getBills={getBills} />
       <div>
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
