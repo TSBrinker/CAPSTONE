@@ -22,19 +22,11 @@ const HomePage = ({ getHousehold, household, setHouseholdID, getRequests }) => {
     getHousehold();
   }, []);
 
-  if (household) {
-    console.log(`we got a household here!`);
-    console.dir(household);
-  } else {
-    console.log("no household :(");
-  }
-
   return household.name ? (
     <div className="text-center">
       <h1>{household.name}</h1>
       <p className="lead">{household.address}</p>
       <ResidentsList />
-      <BillList />
     </div>
   ) : (
     <div>

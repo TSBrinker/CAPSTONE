@@ -56,6 +56,18 @@ const RegisterPage = () => {
           />
         </label>
         <label>
+          Nickname:{""}
+          <input
+            type="text"
+            name="nickname"
+            value={formData.nickname}
+            default
+          />
+        </label>
+        <p style={{ fontSize: "12px" }}>
+          This is how your name will appear throughout the app.
+        </p>
+        <label>
           Password:{" "}
           <input
             type="text"
@@ -65,16 +77,6 @@ const RegisterPage = () => {
           />
         </label>
 
-        {/* <label>
-          Household ID:{""}
-          <input
-            type="number"
-            name="household_id"
-            hidden
-            value={formData.household_id}
-            default
-          />
-        </label> */}
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!

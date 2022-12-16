@@ -51,14 +51,14 @@ const Navbar = ({ household, requests_amount, pendingRequests }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/inventory" className="nav-link" href="#">
+              <Link to="/inventory" className="nav-link">
                 Inventory
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                About
-              </a>
+              <Link to="/list" className="nav-link">
+                Shopping List
+              </Link>
             </li>
           </ul>
           {user ? (

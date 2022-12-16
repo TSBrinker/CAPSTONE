@@ -23,6 +23,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
+import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 
 function App() {
   const [user, token] = useAuth();
@@ -30,36 +31,43 @@ function App() {
   const [pendingRequests, setPendingRequests] = useState(false);
   const [householdID, setHouseholdID] = useState({});
   const [requests, setRequests] = useState([]);
+  const [admin, setAdmin] = useState(false);
 
   async function getHousehold() {
-    if (user.household_id) {
-      console.log("I'm getting a household at App.36");
-      let response = await axios.get("http://127.0.0.1:8000/api/households/", {
+    let response = await axios.get("http://127.0.0.1:8000/api/households/", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    setHousehold(response.data);
+    setHouseholdID(response.data.id);
+  }
+
+  async function getAdminStatus() {
+    let response = await axios.get(
+      `http://127.0.0.1:8000/api/households/${householdID}/admin/`,
+      {
         headers: {
           Authorization: "Bearer " + token,
         },
-      });
-      setHousehold(response.data);
-      setHouseholdID(response.data.id);
-    } else if (householdID) {
-      try {
-        let response = await axios.get(
-          `http://127.0.0.1:8000/api/households/${householdID}/get/`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        console.log(response.data);
-        console.log("yay :D");
-        setHousehold(response.data);
-        setHouseholdID(response.data.id);
-      } catch {
-        console.log("didnt work :(");
       }
+    );
+    console.log(response.data);
+    if (response.data.is_admin) {
+      setAdmin(true);
+      console.log("I'm an admin!");
+    } else {
+      setAdmin(false);
+      console.log("I'm no admin :(");
     }
   }
+
+  useEffect(() => {
+    getAdminStatus();
+  }, [household]);
+
+  console.log(admin);
+
   ///////////// Get the requests to join here so it can display a pill when there's a pending request
   useEffect(() => {
     if (user) {
@@ -114,7 +122,17 @@ function App() {
                 setRequests={setRequests}
                 pendingRequests={pendingRequests}
                 setPendingRequests={setPendingRequests}
+                admin={admin}
+                householdID={householdID}
               />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/list"
+          element={
+            <PrivateRoute>
+              <ShoppingListPage />
             </PrivateRoute>
           }
         />

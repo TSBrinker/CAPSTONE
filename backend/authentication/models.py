@@ -16,3 +16,4 @@ class User(AbstractUser):
     # this will add a column to the user table
     household = models.ForeignKey(Household, default=None, blank=True, null=True, on_delete=models.SET_NULL)
     is_admin = models.BooleanField(default=False, blank=True)
+    nickname = models.CharField(max_length=20)

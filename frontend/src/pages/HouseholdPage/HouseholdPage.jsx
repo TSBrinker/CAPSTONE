@@ -10,6 +10,8 @@ const HouseholdPage = ({
   setPendingRequests,
   requests,
   setRequests,
+  admin,
+  householdID,
 }) => {
   const [user, token] = useAuth();
   //bring join requests here in their own div
@@ -18,7 +20,7 @@ const HouseholdPage = ({
   return (
     <div>
       <div className="text-center"></div>
-      {user.is_admin ? (
+      {admin ? (
         <Row>
           <Col>
             <JoinRequestContainer
@@ -26,10 +28,12 @@ const HouseholdPage = ({
               pendingRequests={pendingRequests}
               setPendingRequests={setPendingRequests}
               setRequests={setRequests}
+              admin={admin}
+              householdID={householdID}
             />
           </Col>
           <Col>
-            <InvitationContainer />
+            <InvitationContainer householdID={householdID} admin={admin} />
           </Col>
         </Row>
       ) : null}
@@ -37,9 +41,6 @@ const HouseholdPage = ({
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
             See household members
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Generate Invite Code
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             BACKLOG select a resident, pop up a modal, and either remove them or

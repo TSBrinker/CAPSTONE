@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const DeleteInviteCodeButton = ({ invite, getInvites }) => {
+const DeleteInviteCodeButton = ({ admin, invite, getInvites }) => {
   const [user, token] = useAuth();
 
   async function deleteInviteCode() {
-    if (user.is_admin) {
+    if (admin) {
       console.log("I'm deleting an invite!");
       let response = await axios.delete(
         `http://127.0.0.1:8000/api/join_invites/${invite.invite_number}/`,

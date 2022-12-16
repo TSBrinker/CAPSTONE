@@ -8,14 +8,16 @@ const JoinRequestList = ({
   setPendingRequests,
   requests,
   setRequests,
+  admin,
+  householdID,
 }) => {
   const [user, token] = useAuth();
 
   async function getRequests() {
-    if (user.is_admin) {
+    if (admin) {
       console.log("I'm getting requests!");
       let response = await axios.get(
-        `http://127.0.0.1:8000/api/households/${user.household_id}/join_requests/`,
+        `http://127.0.0.1:8000/api/households/${householdID}/join_requests/`,
         {
           headers: {
             Authorization: "Bearer " + token,

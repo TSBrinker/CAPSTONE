@@ -8,6 +8,8 @@ const JoinRequestContainer = ({
   setPendingRequests,
   requests,
   setRequests,
+  admin,
+  householdID,
 }) => {
   const [user, token] = useAuth();
 
@@ -18,6 +20,8 @@ const JoinRequestContainer = ({
         setRequests={setRequests}
         pendingRequests={pendingRequests}
         setPendingRequests={setPendingRequests}
+        admin={admin}
+        householdID={householdID}
       />
     </div>
   );

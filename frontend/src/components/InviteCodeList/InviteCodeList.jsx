@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import InviteCode from "../InviteCode/InviteCode.jsx";
 
-const InviteCodeList = ({ invites, getInvites }) => {
+const InviteCodeList = ({ invites, getInvites, admin }) => {
   return (
     <div>
       <Row>
         {invites.map((invite, index) => {
-          return <InviteCode invite={invite} getInvites={getInvites} />;
+          return (
+            <InviteCode admin={admin} invite={invite} getInvites={getInvites} />
+          );
         })}
       </Row>
 

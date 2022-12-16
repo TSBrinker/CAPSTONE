@@ -13,7 +13,7 @@ class Bill(models.Model):
     due_date = models.DateField()
     description = models.CharField(max_length=200)
     is_split = models.BooleanField(default=False)
-    
+    is_paid = models.BooleanField(default=False)
     creation_date = models.DateField(default=datetime.date.today)
     
 

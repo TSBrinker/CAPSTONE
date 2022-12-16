@@ -4,14 +4,18 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import DeleteInviteCodeButton from "../DeleteInviteCodeButton/DeleteInviteCodeButton";
 
-const InviteCode = ({ invite, getInvites }) => {
+const InviteCode = ({ admin, invite, getInvites }) => {
   const [user, token] = useAuth();
 
   return (
     <Col>
       <div className="border radius-1 padding-1">
         <h3>{invite.invite_number}</h3>
-        <DeleteInviteCodeButton invite={invite} getInvites={getInvites} />
+        <DeleteInviteCodeButton
+          admin={admin}
+          invite={invite}
+          getInvites={getInvites}
+        />
       </div>
     </Col>
   );

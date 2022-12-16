@@ -5,15 +5,15 @@ import InviteGenerateButton from "../InviteGenerateButton/InviteGenerateButton";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 
-const InvitationContainer = ({}) => {
+const InvitationContainer = ({ admin, householdID }) => {
   const [user, token] = useAuth();
   const [invites, setInvites] = useState([]);
 
   async function getInvites() {
-    if (user.is_admin) {
+    if (admin) {
       console.log("I'm getting invites!");
       let response = await axios.get(
-        `http://127.0.0.1:8000/api/households/${user.household_id}/join_invites/`,
+        `http://127.0.0.1:8000/api/households/${householdID}/join_invites/`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -30,19 +30,17 @@ const InvitationContainer = ({}) => {
     getInvites();
   }, []);
 
-  //get the invites view
-
-  //generate invite view
-
-  //button function awaits getInvites
-
   return (
     <div className="container border border-curved">
       <div>
         <h4 className="lead">{invites.length}/3 Invite Codes Generated</h4>
       </div>
-      <InviteCodeList invites={invites} getInvites={getInvites} />
-      <InviteGenerateButton getInvites={getInvites} />
+      <InviteCodeList admin={admin} invites={invites} getInvites={getInvites} />
+      <InviteGenerateButton
+        getInvites={getInvites}
+        admin={admin}
+        householdID={householdID}
+      />
     </div>
   );
 };

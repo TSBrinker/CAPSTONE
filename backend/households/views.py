@@ -19,19 +19,34 @@ def get_all_households(request):
     serializer = HouseholdSerializer(households, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_admin_status(request, pk):
+    household = get_object_or_404(Household, pk=pk)
+    user = get_object_or_404(User, pk=request.user.id)
+    if request.user.household_id == household.id:
+        serializer = RegistrationSerializer(user)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_418_IM_A_TEAPOT)
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_household(request):
     if request.method == 'POST':
+        user = request.user
         serializer = HouseholdSerializer(data=request.data)
         print(serializer.initial_data)
-        if serializer.is_valid():
+        serializer2 = RegistrationSerializer(user, data= request.data, partial=True)
+        if serializer.is_valid() and serializer2.is_valid():
             print(request.user.id)
             serializer.save(user=request.user)
+            serializer2.save(is_admin=True)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        household = request.user.household
+        user = get_object_or_404(User, pk=request.user.id)
+        household = user.household
         serializer = HouseholdSerializer(household)
         return Response(serializer.data)
 

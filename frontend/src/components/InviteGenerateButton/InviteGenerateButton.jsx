@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const InviteGenerateButton = ({ getInvites }) => {
+const InviteGenerateButton = ({ getInvites, admin, householdID }) => {
   const [user, token] = useAuth();
 
   async function createInvite() {
-    if (user.is_admin) {
+    if (admin) {
       console.log("I'm creating an invite!");
       let response = await axios.post(
-        `http://127.0.0.1:8000/api/households/${user.household_id}/join_invites/`,
+        `http://127.0.0.1:8000/api/households/${householdID}/join_invites/`,
         {},
         {
           headers: {
