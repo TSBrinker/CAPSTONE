@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Bill
 from .serializers import BillSerializer
 from django.shortcuts import get_object_or_404
+from authentication.models import User
 
 # Create your views here.
 
@@ -12,9 +13,16 @@ from django.shortcuts import get_object_or_404
 @permission_classes([IsAuthenticated])
 def user_bills(request):
     if request.method == 'POST':
-        serializer = BillSerializer(data=request.data)
+        data=request.data
+        new_bill = Bill.objects.create(owner = request.user, name=data["name"], amount=data["amount"], payee=data["payee"], due_date=data["due_date"], description=data["description"], is_split=data["is_split"], )
+        new_bill.save()
+        for user in request.data["users"]:
+            user_obj = User.objects.get(pk=user)
+            new_bill.users.add(user_obj)
+        serializer = BillSerializer(new_bill, data)
         if serializer.is_valid():
-            serializer.save(owner = request.user)
+            serializer.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
@@ -28,8 +36,11 @@ def user_bills(request):
 @permission_classes([IsAuthenticated])
 def update_bill(request, pk):
     bill = get_object_or_404(Bill, pk=pk)
-    if request.user in bill.users.all():
+    if request.user == bill.owner:
         if request.method == 'PUT':
+            for user in request.data["users"]:
+                user_obj = User.objects.get(pk=user)
+                bill.users.add(user_obj)
             serializer = BillSerializer(bill, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
