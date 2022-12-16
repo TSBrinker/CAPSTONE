@@ -7,15 +7,17 @@ import useAuth from "../../hooks/useAuth";
 const BillList = ({ bills }) => {
   const [user, token] = useAuth();
 
-  if (bills) {
-    return bills.map((bill, i) => {
+  return bills.length > 0 ? (
+    bills.map((bill, i) => {
       return (
         <div>
           <Bill bill={bill} i={i} bills={bills} />
         </div>
       );
-    });
-  }
+    })
+  ) : (
+    <div>You've got no bills coming due!</div>
+  );
 };
 
 export default BillList;

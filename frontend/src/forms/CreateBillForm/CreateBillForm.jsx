@@ -140,6 +140,13 @@ const CreateBillForm = ({ getBills, handleClose }) => {
             Split Bill?
           </label>
         </div>
+        {billIsSplit ? (
+          <div class="form-group">
+            i gotta figure out how to return a list of housemates here, and then
+            make each div clickable, and when the div gets clicked add that
+            housemate's id to a list
+          </div>
+        ) : null}
         {/* //////////////////////////// */}
         <button className="btn btn-secondary mt-3" type="submit">
           Create
