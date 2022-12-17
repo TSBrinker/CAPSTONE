@@ -11,11 +11,11 @@ const CreatePaymentForm = ({ bill, getPayments, getBills }) => {
   const [show, setShow] = useState(false);
 
   function handleShow(event) {
-    event.preventDefault();
+    // event.preventDefault();
     setShow(true);
   }
   function handleClose(event) {
-    event.preventDefault();
+    // event.preventDefault();
     setShow(false);
   }
 
@@ -57,8 +57,12 @@ const CreatePaymentForm = ({ bill, getPayments, getBills }) => {
   };
 
   return (
-    <div>
-      <button className="btn btn-secondary btn-small" onClick={handleShow}>
+    <div className="d-grid gap-2">
+      <button
+        className="btn btn-secondary btn-lg"
+        style={{ width: "100%" }}
+        onClick={handleShow}
+      >
         Make a payment
       </button>
       {show ? (

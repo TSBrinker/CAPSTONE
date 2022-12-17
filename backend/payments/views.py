@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Payment
 from .serializers import PaymentSerializer
 from django.shortcuts import get_object_or_404
+from bills.models import Bill
+from bills.serializers import BillSerializer
 
 # Create your views here.
 
@@ -12,8 +14,25 @@ from django.shortcuts import get_object_or_404
 @permission_classes([IsAuthenticated])
 def bill_payments(request, bpk):
     if request.method == 'POST':
+        data=request.data
         serializer = PaymentSerializer(data=request.data)
         if serializer.is_valid():
+            bill = get_object_or_404(Bill, pk=bpk)
+            all_payments = Payment.objects.filter(bill_id=bpk)
+            print(f"all_payments: {all_payments}")
+            # print(f"request.data__amount: data["amount"]")
+            payment_total = float(data["amount"])
+            print(f"initial payment_total (that is to say, the amount in the request?): {payment_total}")
+            for payment in all_payments:
+                print(f"payment.amount: {payment.amount}")
+                payment_total += float(payment.amount)
+                print(f"payment_total: {payment_total}")
+            
+            if payment_total >= bill.amount:
+                serializer2 = BillSerializer(bill, data=request.data, partial=True)
+                if serializer2.is_valid():
+                    print("ya paid it off!")
+                    serializer2.save(is_paid=True, amount=bill.amount)
             serializer.save(bill_id=bpk, user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

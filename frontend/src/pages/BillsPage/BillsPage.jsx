@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import BillList from "../../components/BillList/BillList";
+import BillList from "../../components/BillComponents/BillList/BillList";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import CreateBillForm from "../../forms/CreateBillForm/CreateBillForm";
-import CreateBillModal from "../../components/CreateBillModal/CreateBillModal";
+import CreateBillModal from "../../components/BillComponents/CreateBillModal/CreateBillModal.jsx";
 
 const BillsPage = ({ residents }) => {
   const [user, token] = useAuth();
@@ -23,28 +22,12 @@ const BillsPage = ({ residents }) => {
   }, []);
 
   return (
-    <div>
-      <CreateBillModal getBills={getBills} residents={residents} />
-      <BillList bills={bills} getBills={getBills} />
-      <div>
-        <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            "No bills showing, create a bill?"
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            display list of bills
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Make payment button on each bill
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Pop out to show payments
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            BillsPage &gt; Bill Container &gt; BillList &gt; Bill &gt; See
-            Payments and/or Make Payment
-          </li>
-        </ul>
+    <div className="margin-auto">
+      <div className="container">
+        <CreateBillModal getBills={getBills} residents={residents} />
+      </div>
+      <div className="d-flex flex-row flex-wrap justify-content-around">
+        <BillList bills={bills} getBills={getBills} />
       </div>
     </div>
   );

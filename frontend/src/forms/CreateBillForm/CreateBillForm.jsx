@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-import SplitWithResidentsList from "../../components/SplitWithResidentsList/SplitWithResidentsList";
+import SplitWithResidentsList from "../../components/BillComponents/SplitWithResidentsList/SplitWithResidentsList";
 
 const CreateBillForm = ({ getBills, setShow, residents }) => {
   const [billName, setBillName] = useState("");
@@ -15,7 +15,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
   const [user, token] = useAuth();
 
   const handleClose = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setShow(false);
   };
 
@@ -181,13 +181,14 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
           <button
             className="btn btn-secondary mt-3"
             type="submit"
-            onClick={(event) => handleSubmit(event)}
+            onClick={handleSubmit}
           >
             Create
           </button>
           <button
             className="btn btn-danger mt-3"
-            onClick={(event) => handleClose(event)}
+            type="reset"
+            onClick={handleClose}
           >
             Cancel
           </button>

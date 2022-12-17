@@ -1,14 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import BillList from "../../components/BillList/BillList";
 import axios from "axios";
 import { Container, Modal } from "react-bootstrap";
 import CreateHouseholdForm from "../../forms/CreateHouseholdForm/CreateHouseholdForm";
 import FindHouseholdForm from "../../forms/FindHouseholdForm/FindHouseholdForm";
-import JoinRequestList from "../../components/JoinRequestList/JoinRequestList";
+import JoinRequestList from "../../components/HouseholdComponents/JoinRequestList/JoinRequestList";
 import AcceptInviteForm from "../../forms/AcceptInviteForm/AcceptInviteForm";
-import ResidentsList from "../../components/ResidentsList/ResidentsList";
+import ResidentsList from "../../components/HouseholdComponents/ResidentsList/ResidentsList";
 
 const HomePage = ({ getHousehold, household, setHouseholdID, residents }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)

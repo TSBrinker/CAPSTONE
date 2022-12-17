@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import HouseholdSearchResults from "../../components/HouseholdSearchResults/HouseholdSearchResults";
+import HouseholdSearchResults from "../../components/HouseholdComponents/HouseholdSearchResults/HouseholdSearchResults";
 import useAuth from "../../hooks/useAuth";
 
 const FindHouseholdForm = ({}) => {

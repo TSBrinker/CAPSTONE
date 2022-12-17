@@ -2,8 +2,8 @@ import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { Row, Col } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth";
-import JoinRequestContainer from "../../components/JoinRequestsContainer/JoinRequestContainer";
-import InvitationContainer from "../../components/InvitationContainer/InvitationContainer";
+import JoinRequestContainer from "../../components/HouseholdComponents/JoinRequestsContainer/JoinRequestContainer";
+import InvitationContainer from "../../components/HouseholdComponents/InvitationContainer/InvitationContainer";
 
 const HouseholdPage = ({
   pendingRequests,

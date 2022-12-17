@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import AcceptInviteCard from "../../components/AcceptInviteCard/AcceptInviteCard";
+import AcceptInviteCard from "../../components/HouseholdComponents/AcceptInviteCard/AcceptInviteCard";
 
 const AcceptInviteForm = ({ setHouseholdID, getHousehold }) => {
   const [inviteNumber, setInviteNumber] = useState("");

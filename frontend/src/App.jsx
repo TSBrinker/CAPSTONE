@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "./hooks/useAuth";
 
-import "bootswatch/dist/slate/bootstrap.min.css";
+import "bootswatch/dist/darkly/bootstrap.min.css";
 // TODO: Note: Replace ^[theme]^ (examples: darkly, slate, cosmo, spacelab, and superhero. See https://bootswatch.com/ for current theme names.)
 
 import "./App.css";
