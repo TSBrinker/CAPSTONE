@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const CreateCategoryForm = ({ getCategories, setShow }) => {
+const CreateProductForm = ({ getProducts, setShow }) => {
   const [user, token] = useAuth();
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryDescription, setCategoryDescription] = useState("");
+  const [productName, setProductName] = useState("");
+  const [productDescription, setproductDescription] = useState();
 
   const handleClose = (event) => {
     // event.preventDefault();
@@ -92,4 +92,4 @@ const CreateCategoryForm = ({ getCategories, setShow }) => {
   );
 };
 
-export default CreateCategoryForm;
+export default CreateProductForm;

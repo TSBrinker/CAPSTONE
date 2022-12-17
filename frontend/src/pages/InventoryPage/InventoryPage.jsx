@@ -3,10 +3,14 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import CreateCategoryModal from "../../components/ProductComponents/CreateCategoryModal/CreateCategoryModal";
 import CreateProductModal from "../../components/ProductComponents/CreateProductModal/CreateProductModal";
+import CategoryContainer from "../../components/ProductComponents/CategoryContainer/CategoryContainer";
+import ProductList from "../../components/ProductComponents/ProductList/ProductList";
+import Product from "../../components/ProductComponents/Product/Product";
 
 const InventoryPage = ({}) => {
   const [user, token] = useAuth();
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   async function getCategories() {
     let response = await axios.get("http://127.0.0.1:8000/api/categories/", {
@@ -16,19 +20,41 @@ const InventoryPage = ({}) => {
     });
     setCategories(response.data);
   }
+  async function getProducts() {
+    let response = await axios.get("http://127.0.0.1:8000/api/products/", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    setProducts(response.data);
+  }
 
   useEffect(() => {
     getCategories();
   }, []);
+
+  console.log(categories);
 
   //start with create category modal
 
   return (
     <div>
       <div>
-        <CreateCategoryModal categories={categories} />
+        <CreateProductModal getProducts={getProducts} />
+        <CreateCategoryModal getCategories={getCategories} />
       </div>
       <div>all the stuff you keep in the house!</div>
+      <div>
+        {categories.length > 0 ? (
+          categories.map((category, index) => {
+            return <CategoryContainer category={category} index={index} />;
+          })
+        ) : (
+          <p>
+            <ProductList products={products} />{" "}
+          </p>
+        )}
+      </div>
       <div>
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
