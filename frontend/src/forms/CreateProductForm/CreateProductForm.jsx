@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import SelectCategoryList from "../../components/ProductComponents/SelectCategoryList/SelectCategoryList";
+import SplitWithResidentsList from "../../components/BillComponents/SplitWithResidentsList/SplitWithResidentsList";
 
 const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
+  const [user, token] = useAuth();
   const [productUsers, setProductUsers] = useState([]);
   const [multipleUsers, setMultipleUsers] = useState(false);
   const [productCategory, setProductCategory] = useState("");
@@ -12,7 +14,6 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
   const [productDescription, setProductDescription] = useState("");
   const [productStockStatus, setProductStockedStatus] = useState("stocked");
   const [productQuantity, setProductQuantity] = useState(0);
-  const [user, token] = useAuth();
 
   const handleClose = (event) => {
     // event.preventDefault();
@@ -68,9 +69,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
     <form>
       <fieldset>
         <div className="form-group">
-          <label for="inputProductName" className="form-label mt-4">
-            Product Name
-          </label>
+          <label className="form-label mt-4">Product Name</label>
           <input
             type="text"
             className="form-control"
@@ -81,9 +80,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
         </div>
         {/* //////////////////////////// */}
         <div class="form-group">
-          <label for="inputProductCategory" className="form-label mt-4">
-            Category
-          </label>
+          <label className="form-label mt-4">Category</label>
           <select
             class="form-select"
             id="exampleSelect2"
@@ -108,9 +105,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
           </div>
         </div>
         <div className="form-group">
-          <label for="inputProductDescription" className="form-label mt-4">
-            Description
-          </label>
+          <label className="form-label mt-4">Description</label>
           <textarea
             type="text"
             className="form-control"
@@ -124,9 +119,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
         {/* //////////////////////////// */}
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label for="inputProductQuantity" className="form-label mt-4">
-            Quantity
-          </label>
+          <label className="form-label mt-4">Quantity</label>
           <input
             type="number"
             className="form-control"
@@ -145,6 +138,15 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
             Add Housemates to this product?
           </label>
         </div>{" "}
+        {multipleUsers ? (
+          <div className="card border-info p-2">
+            <SplitWithResidentsList
+              residents={residents}
+              users={productUsers}
+              setUsers={setProductUsers}
+            />
+          </div>
+        ) : null}
         {/* //////////////////////////// */}
         <div className="form-row">
           <button

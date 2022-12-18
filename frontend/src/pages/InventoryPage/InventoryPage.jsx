@@ -7,7 +7,7 @@ import CategoryContainer from "../../components/ProductComponents/CategoryContai
 import ProductList from "../../components/ProductComponents/ProductList/ProductList";
 import Product from "../../components/ProductComponents/Product/Product";
 
-const InventoryPage = ({}) => {
+const InventoryPage = ({ residents }) => {
   const [user, token] = useAuth();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -40,7 +40,11 @@ const InventoryPage = ({}) => {
   return (
     <div>
       <div>
-        <CreateProductModal getProducts={getProducts} categories={categories} />
+        <CreateProductModal
+          getProducts={getProducts}
+          categories={categories}
+          residents={residents}
+        />
         <CreateCategoryModal getCategories={getCategories} />
       </div>
       <div>all the stuff you keep in the house!</div>

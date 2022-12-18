@@ -126,7 +126,7 @@ function App() {
           path="/inventory"
           element={
             <PrivateRoute>
-              <InventoryPage />
+              <InventoryPage residents={residents} />
             </PrivateRoute>
           }
         />

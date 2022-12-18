@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import SplitWithResident from "../SplitWithResident/SplitWithResident";
 import useAuth from "../../../hooks/useAuth";
 
-const SplitWithResidentsList = ({ residents, billUsers, setBillUsers }) => {
+const SplitWithResidentsList = ({ residents, users, setUsers }) => {
   const [user, token] = useAuth();
 
   function handleCheck(event) {
     // event.preventDefault();
-    let updatedList = [...billUsers];
+    let updatedList = [...users];
     if (event.target.checked) {
-      updatedList = [...billUsers, event.target.value];
+      updatedList = [...users, event.target.value];
     } else {
-      updatedList.splice(billUsers.indexOf(event.target.value), 1);
+      updatedList.splice(users.indexOf(event.target.value), 1);
     }
-    setBillUsers(updatedList);
+    setUsers(updatedList);
   }
 
   let housemates = residents.filter((resident) => {

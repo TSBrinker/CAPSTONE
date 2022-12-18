@@ -154,8 +154,8 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
           <div className="card border-info p-2">
             <SplitWithResidentsList
               residents={residents}
-              billUsers={billUsers}
-              setBillUsers={setBillUsers}
+              users={billUsers}
+              setUsers={setBillUsers}
             />
             <div className="form-check mt-3">
               <input

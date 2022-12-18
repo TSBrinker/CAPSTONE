@@ -3,7 +3,7 @@ import axios from "axios";
 import CreateProductForm from "../../../forms/CreateProductForm/CreateProductForm";
 import { Modal } from "react-bootstrap";
 
-const CreateCategoryModal = ({ getProducts, categories }) => {
+const CreateProductModal = ({ getProducts, categories, residents }) => {
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -36,6 +36,7 @@ const CreateCategoryModal = ({ getProducts, categories }) => {
             categories={categories}
             getProducts={getProducts}
             setShow={setShow}
+            residents={residents}
           />
         </Modal.Body>
       </Modal>
@@ -43,4 +44,4 @@ const CreateCategoryModal = ({ getProducts, categories }) => {
   );
 };
 
-export default CreateCategoryModal;
+export default CreateProductModal;

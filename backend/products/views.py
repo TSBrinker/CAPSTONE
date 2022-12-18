@@ -19,6 +19,9 @@ def get_products(request):
         category = get_object_or_404(Category, pk = request.data["category"])
         new_product = Product.objects.create(owner = request.user, name=data["name"], category=category, brand=data["brand"], stock_status=data["stock_status"], quantity=data["quantity"])        
         new_product.save()
+        for user in request.data["users"]:
+            user_obj = User.objects.get(pk=user)
+            new_product.secondary_users.add(user_obj)
         serializer = ProductSerializer(new_product, data=request.data)
         if serializer.is_valid():
             serializer.save(category=category)
