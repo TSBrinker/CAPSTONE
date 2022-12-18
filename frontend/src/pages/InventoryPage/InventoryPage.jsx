@@ -40,7 +40,7 @@ const InventoryPage = ({}) => {
   return (
     <div>
       <div>
-        <CreateProductModal getProducts={getProducts} />
+        <CreateProductModal getProducts={getProducts} categories={categories} />
         <CreateCategoryModal getCategories={getCategories} />
       </div>
       <div>all the stuff you keep in the house!</div>

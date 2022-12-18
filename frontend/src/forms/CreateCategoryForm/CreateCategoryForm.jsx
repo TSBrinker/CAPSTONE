@@ -46,9 +46,7 @@ const CreateCategoryForm = ({ getCategories, setShow }) => {
     <form>
       <fieldset>
         <div className="form-group">
-          <label for="inputBillName" className="form-label mt-4">
-            Category Name
-          </label>
+          <label className="form-label mt-4">Category Name</label>
           <input
             required
             type="text"
@@ -60,9 +58,7 @@ const CreateCategoryForm = ({ getCategories, setShow }) => {
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label for="inputBillPayee" className="form-label mt-4">
-            Description
-          </label>
+          <label className="form-label mt-4">Description</label>
           <input
             type="text"
             className="form-control"

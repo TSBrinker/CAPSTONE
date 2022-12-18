@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Product
 from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
+from authentication.models import User
+from categories.models import Category
 
 # Create your views here.
 
@@ -12,13 +14,18 @@ from django.shortcuts import get_object_or_404
 @permission_classes([IsAuthenticated])
 def get_products(request):
     if request.method == 'POST':
-        serializer = ProductSerializer(data=request.data)
+        data=request.data
+        print(request.user)
+        category = get_object_or_404(Category, pk = request.data["category"])
+        new_product = Product.objects.create(owner = request.user, name=data["name"], category=category, brand=data["brand"], stock_status=data["stock_status"], quantity=data["quantity"])        
+        new_product.save()
+        serializer = ProductSerializer(new_product, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(category=category)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        products = Product.objects.filter(users__id=request.user.id) | Product.objects.filter(secondary_users__id=request.user.id)
+        products = Product.objects.filter(owner=request.user) | Product.objects.filter(secondary_users__id=request.user.id)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 

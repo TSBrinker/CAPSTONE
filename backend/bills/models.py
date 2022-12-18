@@ -5,7 +5,7 @@ import datetime
 # Create your models here.
 
 class Bill(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.DO_NOTHING) 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE) 
     users = models.ManyToManyField(User, blank=True, default=None, related_name="bill_participant")
     name = models.CharField(max_length=30) 
     payee = models.CharField(max_length=50)

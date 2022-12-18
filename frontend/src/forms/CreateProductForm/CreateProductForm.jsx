@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-import SplitWithResidentsList from "../../components/ProductComponents/SplitWithResidentsList/SplitWithResidentsList";
+import SelectCategoryList from "../../components/ProductComponents/SelectCategoryList/SelectCategoryList";
 
 const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
   const [productUsers, setProductUsers] = useState([]);
   const [multipleUsers, setMultipleUsers] = useState(false);
   const [productCategory, setProductCategory] = useState("");
   const [productName, setProductName] = useState("");
-  const [productBrand, setProductBrand] = useState(0.0);
+  const [productBrand, setProductBrand] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [productStockStatus, setProductStockedStatus] = useState("stocked");
   const [productQuantity, setProductQuantity] = useState(0);
   const [user, token] = useAuth();
 
@@ -20,12 +21,14 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
 
   async function addProduct() {
     let newProduct = {
+      owner: user.id,
       name: productName,
       category: productCategory,
-      amount: productBrand,
+      brand: productBrand,
       quantity: productQuantity,
       description: productDescription,
       users: productUsers,
+      stock_status: productStockStatus,
     };
 
     try {
@@ -46,10 +49,6 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
     }
   }
 
-  function handleSplit() {
-    setProductIsSplit(!productIsSplit);
-  }
-
   function handleMultipleUsers() {
     setMultipleUsers(!multipleUsers);
   }
@@ -63,7 +62,6 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
     setProductDescription("");
     setProductBrand(0.0);
     setProductQuantity("");
-    setProductIsSplit(false);
   };
 
   return (
@@ -76,25 +74,39 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Internet, Utilities, Phone Bill..."
+            placeholder="Milk, Eggs, Butter..."
             onChange={(event) => setProductName(event.target.value)}
             value={productName}
           />
         </div>
         {/* //////////////////////////// */}
-        <div className="form-group">
+        <div class="form-group">
           <label for="inputProductCategory" className="form-label mt-4">
             Category
           </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Comcast, Verizon, Progressive..."
+          <select
+            class="form-select"
+            id="exampleSelect2"
             onChange={(event) => setProductCategory(event.target.value)}
-            value={productCategory}
-          />
+          >
+            <option value="0">None</option>
+            <SelectCategoryList categories={categories} />
+          </select>
         </div>
         {/* //////////////////////////// */}
+        <div className="form-group">
+          <label className="form-label mt-4">Brand (Optional)</label>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your favorite brand for this product "
+              aria-label="Brand"
+              onChange={(event) => setProductBrand(event.target.value)}
+              value={productBrand}
+            />
+          </div>
+        </div>
         <div className="form-group">
           <label for="inputProductDescription" className="form-label mt-4">
             Description
@@ -104,28 +116,13 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
             className="form-control"
             // style={(resize = "none")}
             rows="3"
-            placeholder="Here's where you can enter any account number or producting addresses, or anything else you want to keep track of or share."
+            placeholder="Any other details you want to keep track of, or variety of items you like (like *DoubleStuf* Oreos, or *Distilled* water)."
             onChange={(event) => setProductDescription(event.target.value)}
             value={productDescription}
           />
         </div>
         {/* //////////////////////////// */}
         {/* //////////////////////////// */}
-        <div className="form-group">
-          <label className="form-label mt-4">Brand</label>
-          <div className="form-group">
-            <div className="input-group mb-1">
-              <span className="input-group-text">$</span>
-              <input
-                type="number"
-                className="form-control"
-                aria-label="Brand (to the nearest dollar)"
-                onChange={(event) => setProductBrand(event.target.value)}
-                value={productBrand}
-              />
-            </div>
-          </div>
-        </div>
         <div className="form-group">
           <label for="inputProductQuantity" className="form-label mt-4">
             Quantity
@@ -148,32 +145,6 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
             Add Housemates to this product?
           </label>
         </div>{" "}
-        {multipleUsers ? (
-          <div className="card border-info p-2">
-            <SplitWithResidentsList
-              residents={residents}
-              productUsers={productUsers}
-              setProductUsers={setProductUsers}
-            />
-            <div className="form-check mt-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="checkProductIsSplit"
-                onChange={() => handleSplit()}
-                value={productIsSplit}
-              />
-              <label className="form-check-label" for="flexCheckDefault">
-                Split Product?
-              </label>
-              <p className="text-muted blockquote-footer mt-2">
-                Splitting a product will divide the total between yourself and
-                selected users, and any payments a user logs will only apply to
-                that user's portion.
-              </p>
-            </div>{" "}
-          </div>
-        ) : null}
         {/* //////////////////////////// */}
         <div className="form-row">
           <button

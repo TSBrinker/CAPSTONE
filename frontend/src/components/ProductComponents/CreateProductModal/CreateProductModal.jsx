@@ -3,7 +3,7 @@ import axios from "axios";
 import CreateProductForm from "../../../forms/CreateProductForm/CreateProductForm";
 import { Modal } from "react-bootstrap";
 
-const CreateCategoryModal = ({ getProducts }) => {
+const CreateCategoryModal = ({ getProducts, categories }) => {
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -23,16 +23,20 @@ const CreateCategoryModal = ({ getProducts }) => {
           onClick={handleShow}
           type="button"
         >
-          <p className="lead mb-0">Create Category</p>
+          <p className="lead mb-0">Add Product</p>
         </button>
       </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="top-label">Create Category</Modal.Title>
+          <Modal.Title className="top-label">Add Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateProductForm getProducts={getProducts} setShow={setShow} />
+          <CreateProductForm
+            categories={categories}
+            getProducts={getProducts}
+            setShow={setShow}
+          />
         </Modal.Body>
       </Modal>
     </>
