@@ -3,14 +3,15 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import CreateCategoryModal from "../../components/ProductComponents/CreateCategoryModal/CreateCategoryModal";
 import CreateProductModal from "../../components/ProductComponents/CreateProductModal/CreateProductModal";
-import PersonalCategoryContainer from "../../components/ProductComponents/PersonalCategoryContainer/PersonalCategoryContainer";
+import CategoryContainer from "../../components/ProductComponents/CategoryContainer/CategoryContainer";
 import ProductList from "../../components/ProductComponents/ProductList/ProductList";
 import Product from "../../components/ProductComponents/Product/Product";
 
 const InventoryPage = ({ residents, household }) => {
   const [user, token] = useAuth();
-  const [categories, setCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [displayCategories, setDisplayCategories] = useState([]);
 
   async function getCategories() {
     let response = await axios.get("http://127.0.0.1:8000/api/categories/", {
@@ -18,7 +19,7 @@ const InventoryPage = ({ residents, household }) => {
         Authorization: "Bearer " + token,
       },
     });
-    setCategories(response.data);
+    setAllCategories(response.data);
   }
   async function getProducts() {
     let response = await axios.get("http://127.0.0.1:8000/api/products/", {
@@ -29,11 +30,41 @@ const InventoryPage = ({ residents, household }) => {
     setProducts(response.data);
   }
 
+  let personalCategories = allCategories.filter((category) => {
+    if (!category.household) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  console.log(personalCategories);
+
+  let householdCategories = allCategories.filter((category) => {
+    if (category.household) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  console.log(householdCategories);
+
   useEffect(() => {
     getCategories();
   }, []);
 
-  console.log(categories);
+  function handlePersonal(event) {
+    // event.preventDefault();
+    setDisplayCategories(personalCategories);
+    console.log("mine");
+  }
+
+  function handleEveryones(event) {
+    // event.preventDefault();
+    setDisplayCategories(householdCategories);
+    console.log("ours");
+  }
 
   //start with create category modal
 
@@ -42,7 +73,7 @@ const InventoryPage = ({ residents, household }) => {
       <div>
         <CreateProductModal
           getProducts={getProducts}
-          categories={categories}
+          categories={displayCategories}
           residents={residents}
         />
         <CreateCategoryModal
@@ -51,13 +82,36 @@ const InventoryPage = ({ residents, household }) => {
         />
       </div>
       <div>all the stuff you keep in the house!</div>
-
+      <div className="btn-group" role="group">
+        <input
+          type="radio"
+          className="btn-check btn-secondary"
+          name="btnradio"
+          id="setPersonalCategories"
+          autocomplete="off"
+          onClick={handlePersonal}
+          // checked=""
+        />
+        <label className="btn btn-outline-primary" for="setPersonalCategories">
+          Mine
+        </label>
+        <input
+          type="radio"
+          className="btn-check btn-secondary"
+          name="btnradio"
+          id="setHouseholdCategories"
+          autocomplete="off"
+          onClick={handleEveryones}
+          // checked=""
+        />
+        <label className="btn btn-outline-primary" for="setHouseholdCategories">
+          Household
+        </label>
+      </div>
       <div>
-        {categories.length > 0 ? (
-          categories.map((category, index) => {
-            return (
-              <PersonalCategoryContainer category={category} index={index} />
-            );
+        {displayCategories.length > 0 ? (
+          displayCategories.map((category, index) => {
+            return <CategoryContainer category={category} index={index} />;
           })
         ) : (
           <p>
