@@ -11,5 +11,5 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     brand = models.CharField(max_length=50, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
-    stock_level = models.CharField(max_length=7, default="stacked")
+    stock_level = models.CharField(max_length=7, default="stocked")
     quantity = models.IntegerField(default=0)
