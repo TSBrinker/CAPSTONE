@@ -12,7 +12,14 @@ from django.shortcuts import get_object_or_404
 @permission_classes([IsAuthenticated])
 def get_categories(request):
     if request.method == 'POST':
-        serializer = CategorySerializer(data=request.data)
+        data=request.data
+        if request.data["is_household"] == True:
+            new_category = Category.objects.create(user = request.user, name=data["name"], description=data["description"], household=request.user.household)
+        else: 
+            new_category = Category.objects.create(user = request.user, name=data["name"], description=data["description"])
+        new_category.save()
+        serializer = CategorySerializer(new_category, data=request.data)
+        print(serializer.initial_data)
         if serializer.is_valid():
             serializer.save(user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

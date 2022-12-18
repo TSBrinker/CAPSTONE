@@ -12,8 +12,9 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
   const [productName, setProductName] = useState("");
   const [productBrand, setProductBrand] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productStockStatus, setProductStockedStatus] = useState("stocked");
-  const [productQuantity, setProductQuantity] = useState(0);
+  const [productStockLevel, setProductStockedStatus] = useState(2);
+  const [productIsHousehold, setProductIsHousehold] = useState(false);
+  const [productHousehold, setProductHousehold] = useState("");
 
   const handleClose = (event) => {
     // event.preventDefault();
@@ -26,10 +27,11 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
       name: productName,
       category: productCategory,
       brand: productBrand,
-      quantity: productQuantity,
       description: productDescription,
       users: productUsers,
-      stock_status: productStockStatus,
+      stock_level: productStockLevel,
+      is_household: productIsHousehold,
+      household: productHousehold,
     };
 
     try {
@@ -62,12 +64,50 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
     setProductCategory("");
     setProductDescription("");
     setProductBrand(0.0);
-    setProductQuantity("");
   };
 
   return (
     <form>
       <fieldset>
+        <div
+          className="btn-group"
+          role="group"
+          aria-label="Basic radio toggle button group"
+        >
+          <input
+            type="radio"
+            className="btn-check btn-secondary"
+            name="btnradio"
+            id="btnradio1"
+            autocomplete="off"
+            // checked=""
+          />
+          <label className="btn btn-outline-primary" for="btnradio1">
+            Mine
+          </label>
+          <input
+            type="radio"
+            className="btn-check"
+            name="btnradio"
+            id="btnradio2"
+            autocomplete="off"
+            // checked=""
+          />
+          <label className="btn btn-outline-primary" for="btnradio2">
+            Shared
+          </label>
+          <input
+            type="radio"
+            className="btn-check"
+            name="btnradio"
+            id="btnradio3"
+            autocomplete="off"
+            // checked=""
+          />
+          <label className="btn btn-outline-primary" for="btnradio3">
+            Household
+          </label>
+        </div>
         <div className="form-group">
           <label className="form-label mt-4">Product Name</label>
           <input
@@ -79,10 +119,10 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
           />
         </div>
         {/* //////////////////////////// */}
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label mt-4">Category</label>
           <select
-            class="form-select"
+            className="form-select"
             id="exampleSelect2"
             onChange={(event) => setProductCategory(event.target.value)}
           >
@@ -118,7 +158,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
         </div>
         {/* //////////////////////////// */}
         {/* //////////////////////////// */}
-        <div className="form-group">
+        {/* <div className="form-group">
           <label className="form-label mt-4">Quantity</label>
           <input
             type="number"
@@ -126,7 +166,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
             onChange={(event) => setProductQuantity(event.target.value)}
             value={productQuantity}
           />
-        </div>
+        </div> */}
         <div className="form-check mt-3">
           <input
             className="form-check-input"

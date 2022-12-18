@@ -1,6 +1,7 @@
 from django.db import models
 from authentication.models import User
 from categories.models import Category
+from households.models import Household
 
 # Create your models here.
 
@@ -11,5 +12,6 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     brand = models.CharField(max_length=50, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)
-    stock_status = models.CharField(max_length=7, default="stocked")
-    quantity = models.IntegerField(default=0)
+    stock_level = models.PositiveIntegerField()
+    is_household = models.BooleanField(default=False)
+    household = models.ForeignKey(Household, default=None, blank=True, null=True, on_delete=models.SET_NULL)   

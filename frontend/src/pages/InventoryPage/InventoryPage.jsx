@@ -3,11 +3,11 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import CreateCategoryModal from "../../components/ProductComponents/CreateCategoryModal/CreateCategoryModal";
 import CreateProductModal from "../../components/ProductComponents/CreateProductModal/CreateProductModal";
-import CategoryContainer from "../../components/ProductComponents/CategoryContainer/CategoryContainer";
+import PersonalCategoryContainer from "../../components/ProductComponents/PersonalCategoryContainer/PersonalCategoryContainer";
 import ProductList from "../../components/ProductComponents/ProductList/ProductList";
 import Product from "../../components/ProductComponents/Product/Product";
 
-const InventoryPage = ({ residents }) => {
+const InventoryPage = ({ residents, household }) => {
   const [user, token] = useAuth();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -45,13 +45,19 @@ const InventoryPage = ({ residents }) => {
           categories={categories}
           residents={residents}
         />
-        <CreateCategoryModal getCategories={getCategories} />
+        <CreateCategoryModal
+          household={household}
+          getCategories={getCategories}
+        />
       </div>
       <div>all the stuff you keep in the house!</div>
+
       <div>
         {categories.length > 0 ? (
           categories.map((category, index) => {
-            return <CategoryContainer category={category} index={index} />;
+            return (
+              <PersonalCategoryContainer category={category} index={index} />
+            );
           })
         ) : (
           <p>

@@ -3,7 +3,7 @@ import axios from "axios";
 import CreateCategoryForm from "../../../forms/CreateCategoryForm/CreateCategoryForm";
 import { Modal } from "react-bootstrap";
 
-const CreateCategoryModal = ({ getCategories }) => {
+const CreateCategoryModal = ({ getCategories, household }) => {
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -32,7 +32,11 @@ const CreateCategoryModal = ({ getCategories }) => {
           <Modal.Title className="top-label">Create Category</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateCategoryForm getCategories={getCategories} setShow={setShow} />
+          <CreateCategoryForm
+            household={household}
+            getCategories={getCategories}
+            setShow={setShow}
+          />
         </Modal.Body>
       </Modal>
     </>
