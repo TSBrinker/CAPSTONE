@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductList from "../ProductList/ProductList";
 
-const CategoryContainer = ({ category, products }) => {
+const CategoryContainer = ({ category }) => {
   return (
     <div className="border border-rounded border-secondary mx-4 my-2 p-2">
       <h3>
@@ -10,7 +10,7 @@ const CategoryContainer = ({ category, products }) => {
       {category.description ? (
         <p className="blockquote-footer mt-1">{category.description}</p>
       ) : null}
-      <ProductList category={category} products={products} />
+      <ProductList category={category} />
     </div>
   );
 };

@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const OutButton = ({ product, setStockLevel }) => {
-  const [activeStatus, setActiveStatus] = useState("inactive");
-  let out_level = 0;
+  const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
+  let out_level = 1;
 
   useEffect(() => {
-    if (product.stocked_level != out_level) {
-      setActiveStatus("inactive");
+    if (product.stock_level != out_level) {
+      setActiveStatus("btn-outline-dark bg-light");
     } else {
-      setActiveStatus("active");
+      setActiveStatus("btn-danger");
     }
   }, [product]);
+
+  function handleClick() {
+    setStockLevel(out_level);
+  }
 
   return (
     <div>
@@ -19,10 +23,14 @@ const OutButton = ({ product, setStockLevel }) => {
         type="button"
         className="btn-check"
         name="btn"
-        id="stock3"
+        id={`${product.id}out`}
         autocomplete="off"
+        onClick={handleClick}
       />
-      <label className="btn btn-sm btn-outline-dark bg-light" for="stock3">
+      <label
+        className={`btn btn-sm ${activeStatus}`}
+        htmlFor={`${product.id}out`}
+      >
         Out
       </label>
     </div>

@@ -20,11 +20,13 @@ const ProductList = ({ category, productRefresh }) => {
   }
 
   useEffect(() => {
-    getProducts();
+    if (category) {
+      getProducts();
+    }
   }, [productRefresh]);
 
   return products.length > 0 ? (
-    <div>
+    <>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -36,11 +38,17 @@ const ProductList = ({ category, productRefresh }) => {
         </thead>
         <tbody>
           {products.map((product, index) => {
-            return <Product product={product} index={index} />;
+            return (
+              <Product
+                product={product}
+                index={index}
+                getProducts={getProducts}
+              />
+            );
           })}
         </tbody>
       </table>
-    </div>
+    </>
   ) : (
     <div className="text-muted">Add a product to this category!</div>
   );

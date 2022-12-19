@@ -141,7 +141,7 @@ const CreateProductForm = ({
             id="checkMultipleUsers"
             onChange={() => handleMultipleUsers()}
           />
-          <label className="form-check-label" for="flexCheckDefault">
+          <label className="form-check-label" htmlFor="flexCheckDefault">
             Add Housemates to this product?
           </label>
         </div>{" "}

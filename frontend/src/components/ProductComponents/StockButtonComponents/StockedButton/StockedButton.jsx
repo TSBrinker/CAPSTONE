@@ -2,31 +2,37 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const StockedButton = ({ product, setStockLevel }) => {
-  const [activeStatus, setActiveStatus] = useState("btn-success");
-
-  let stocked_level = 2;
+  const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
 
   useEffect(() => {
-    if (product.stock_level != stocked_level) {
+    if (product.stock_level != 3) {
       setActiveStatus("btn-outline-dark bg-light");
     } else {
       setActiveStatus("btn-success");
     }
   }, [product]);
 
+  function handleClick() {
+    setStockLevel(3);
+  }
+
   return (
-    <div>
+    <>
       <input
         type="button"
         className="btn-check"
         name="btn"
-        id="stock1"
+        id={`${product.id}stocked`}
         autocomplete="off"
+        onClick={handleClick}
       />
-      <label className={`btn btn-sm ${activeStatus}`} for="stock1">
+      <label
+        className={`btn btn-sm ${activeStatus}`}
+        for={`${product.id}stocked`}
+      >
         Stocked
       </label>
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import axios from "axios";
 const LowButton = ({ product, setStockLevel }) => {
   const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
 
-  let low_level = 1;
+  let low_level = 2;
 
   useEffect(() => {
     if (product.stock_level != low_level) {
@@ -14,19 +14,24 @@ const LowButton = ({ product, setStockLevel }) => {
     }
   }, [product]);
 
+  function handleClick() {
+    setStockLevel(low_level);
+  }
+
   return (
-    <div>
+    <>
       <input
         type="button"
         className="btn-check"
         name="btn"
-        id="stock2"
+        id={`${product.id}low`}
         autocomplete="off"
+        onClick={handleClick}
       />
-      <label className={`btn btn-sm ${activeStatus}`} for="stock2">
+      <label className={`btn btn-sm ${activeStatus}`} for={`${product.id}low`}>
         Low
       </label>
-    </div>
+    </>
   );
 };
 

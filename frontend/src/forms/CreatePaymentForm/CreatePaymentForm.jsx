@@ -85,7 +85,7 @@ const CreatePaymentForm = ({ bill, getPayments, getBills }) => {
             </div>
 
             <div className="form-group">
-              <label for="inputBillDueDate" className="form-label mt-4">
+              <label htmlFor="inputBillDueDate" className="form-label mt-4">
                 Payment Date
               </label>
               <input
@@ -96,7 +96,7 @@ const CreatePaymentForm = ({ bill, getPayments, getBills }) => {
               />
             </div>
             <div className="form-group">
-              <label for="inputBillPayee" className="form-label mt-4">
+              <label htmlFor="inputBillPayee" className="form-label mt-4">
                 Confirmation
               </label>
               <input
@@ -109,7 +109,7 @@ const CreatePaymentForm = ({ bill, getPayments, getBills }) => {
             </div>
 
             <div className="form-group">
-              <label for="inputBillDescription" className="form-label mt-4">
+              <label htmlFor="inputBillDescription" className="form-label mt-4">
                 Notes
               </label>
               <textarea

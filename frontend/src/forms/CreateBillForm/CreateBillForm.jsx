@@ -72,7 +72,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
     <form>
       <fieldset>
         <div className="form-group">
-          <label for="inputBillName" className="form-label mt-4">
+          <label htmlFor="inputBillName" className="form-label mt-4">
             Bill Name
           </label>
           <input
@@ -85,7 +85,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label for="inputBillPayee" className="form-label mt-4">
+          <label htmlFor="inputBillPayee" className="form-label mt-4">
             Payee
           </label>
           <input
@@ -98,7 +98,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label for="inputBillDescription" className="form-label mt-4">
+          <label htmlFor="inputBillDescription" className="form-label mt-4">
             Description
           </label>
           <textarea
@@ -129,7 +129,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
           </div>
         </div>
         <div className="form-group">
-          <label for="inputBillDueDate" className="form-label mt-4">
+          <label htmlFor="inputBillDueDate" className="form-label mt-4">
             Due Date
           </label>
           <input
@@ -146,7 +146,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
             id="checkMultipleUsers"
             onChange={() => handleMultipleUsers()}
           />
-          <label className="form-check-label" for="flexCheckDefault">
+          <label className="form-check-label" htmlFor="flexCheckDefault">
             Add Housemates to this bill?
           </label>
         </div>{" "}
@@ -165,7 +165,7 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
                 onChange={() => handleSplit()}
                 value={billIsSplit}
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" htmlFor="flexCheckDefault">
                 Split Bill?
               </label>
               <p className="text-muted blockquote-footer mt-2">

@@ -83,11 +83,14 @@ const InventoryPage = ({ residents, household }) => {
           className="btn-check btn-secondary"
           name="btnradio"
           id="setPersonalCategories"
-          autocomplete="off"
+          autoComplete="off"
           onClick={handlePersonal}
-          checked
+          defaultChecked
         />
-        <label className="btn btn-outline-primary" for="setPersonalCategories">
+        <label
+          className="btn btn-outline-primary"
+          htmlFor="setPersonalCategories"
+        >
           Mine
         </label>
         <input
@@ -95,10 +98,13 @@ const InventoryPage = ({ residents, household }) => {
           className="btn-check btn-secondary"
           name="btnradio"
           id="setHouseholdCategories"
-          autocomplete="off"
+          autoComplete="off"
           onClick={handleEveryones}
         />
-        <label className="btn btn-outline-primary" for="setHouseholdCategories">
+        <label
+          className="btn btn-outline-primary"
+          htmlFor="setHouseholdCategories"
+        >
           Household
         </label>
       </div>
