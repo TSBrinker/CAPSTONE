@@ -75,7 +75,7 @@ const CreateProductForm = ({
     <form>
       <fieldset>
         <div className="form-group">
-          <label className="form-label mt-4">Product Name</label>
+          <label className="form-label mt-4">Product Name*</label>
           <input
             type="text"
             className="form-control"
@@ -87,19 +87,20 @@ const CreateProductForm = ({
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label className="form-label mt-4">Category</label>
+          <label className="form-label mt-4">Category*</label>
           <select
             className="form-select"
             id={`$category`}
             onChange={(event) => setProductCategory(event.target.value)}
+            required
           >
-            <option value="0">None</option>
+            <option value="0"></option>
             <SelectCategoryList categories={categories} />
           </select>
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">
-          <label className="form-label mt-4">Brand (Optional)</label>
+          <label className="form-label mt-4">Brand</label>
           <div className="form-group">
             <input
               type="text"

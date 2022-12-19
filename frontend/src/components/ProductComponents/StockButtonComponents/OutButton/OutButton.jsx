@@ -3,10 +3,9 @@ import axios from "axios";
 
 const OutButton = ({ product, setStockLevel }) => {
   const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
-  let out_level = 1;
 
   useEffect(() => {
-    if (product.stock_level != out_level) {
+    if (product.stock_level != 1) {
       setActiveStatus("btn-outline-dark bg-light");
     } else {
       setActiveStatus("btn-danger");
@@ -14,11 +13,11 @@ const OutButton = ({ product, setStockLevel }) => {
   }, [product]);
 
   function handleClick() {
-    setStockLevel(out_level);
+    setStockLevel(1);
   }
 
   return (
-    <div>
+    <>
       <input
         type="button"
         className="btn-check"
@@ -33,7 +32,7 @@ const OutButton = ({ product, setStockLevel }) => {
       >
         Out
       </label>
-    </div>
+    </>
   );
 };
 

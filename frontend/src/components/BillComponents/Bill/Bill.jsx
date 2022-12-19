@@ -55,10 +55,6 @@ const Bill = ({ bill, i, bills, getBills }) => {
     }
   }
 
-  //   console.log(
-  //     `${user.username}'s total payments toward ${bill.payee}: ${myPaymentTotal}`
-  //   );
-
   let balance = parseFloat(portion) - parseFloat(subtractor);
   if (balance < 0) {
     balance = 0;

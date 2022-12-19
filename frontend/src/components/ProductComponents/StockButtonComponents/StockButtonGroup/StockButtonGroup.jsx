@@ -33,15 +33,11 @@ const StockButtonGroup = ({ product, getProducts }) => {
   }, [stockLevel]);
 
   return (
-    <td
-      className="btn-group"
-      role="group"
-      aria-label="Basic radio toggle button group"
-    >
+    <>
       <StockedButton product={product} setStockLevel={setStockLevel} />
       <LowButton product={product} setStockLevel={setStockLevel} />
       <OutButton product={product} setStockLevel={setStockLevel} />
-    </td>
+    </>
   );
 };
 

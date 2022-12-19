@@ -5,6 +5,7 @@ import LowButton from "../StockButtonComponents/LowButton/LowButton";
 import StockButtonGroup from "../StockButtonComponents/StockButtonGroup/StockButtonGroup";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
+import PurchaseButton from "../PurchaseButton/PurchaseButton";
 
 const Product = ({ product, index, getProducts }) => {
   const [user, token] = useAuth();
@@ -36,10 +37,6 @@ const Product = ({ product, index, getProducts }) => {
     }
   }, [stockLevel]);
 
-  function handleStocked() {
-    setStockLevel(2);
-  }
-
   return (
     <tr className="table-primary">
       <th scope="row">
@@ -48,8 +45,16 @@ const Product = ({ product, index, getProducts }) => {
 
       {product.brand ? <td>{product.brand}</td> : <td>NA</td>}
       {product.description ? <td>{product.description}</td> : <td>NA</td>}
-
-      <StockButtonGroup product={product} getProducts={getProducts} />
+      <td
+        className=" rounded-0"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <StockButtonGroup product={product} getProducts={getProducts} />
+      </td>
+      <td>
+        <PurchaseButton product={product} getProducts={getProducts} />
+      </td>
     </tr>
   );
 };

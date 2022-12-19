@@ -134,11 +134,6 @@ const InventoryPage = ({ residents, household }) => {
             })}{" "}
           </div>
         )}
-
-        <div className="border border-rounded border-secondary mx-4 my-1 p-2">
-          <h3>Misc</h3>
-          <ProductList getAllTheThings={getAllTheThings} />{" "}
-        </div>
       </div>
       <div>
         <ul className="list-group">

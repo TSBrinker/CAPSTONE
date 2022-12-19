@@ -36,7 +36,9 @@ const ProductList = ({ category, getAllTheThings }) => {
             <th scope="col">Name</th>
             <th scope="col">Brand</th>
             <th scope="col">Description</th>
-            <th scope="col"> </th>
+            <th scope="col">Level</th>
+            <th scope="col">Purchase</th>
+            <th scope="col">History</th>
           </tr>
         </thead>
         <tbody>

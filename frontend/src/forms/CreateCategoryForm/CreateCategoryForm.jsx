@@ -50,7 +50,7 @@ const CreateCategoryForm = ({ getAllTheThings, setShow, isHousehold }) => {
     <form>
       <fieldset>
         <div className="form-group">
-          <label className="form-label mt-4">Category Name</label>
+          <label className="form-label mt-4">Category Name*</label>
           <input
             required
             type="text"

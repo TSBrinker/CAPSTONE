@@ -4,10 +4,8 @@ import axios from "axios";
 const LowButton = ({ product, setStockLevel }) => {
   const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
 
-  let low_level = 2;
-
   useEffect(() => {
-    if (product.stock_level != low_level) {
+    if (product.stock_level != 2) {
       setActiveStatus("btn-outline-dark bg-light");
     } else {
       setActiveStatus("btn-warning");
@@ -15,7 +13,7 @@ const LowButton = ({ product, setStockLevel }) => {
   }, [product]);
 
   function handleClick() {
-    setStockLevel(low_level);
+    setStockLevel(2);
   }
 
   return (

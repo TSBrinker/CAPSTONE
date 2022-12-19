@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Purchase
 from .serializers import PurchaseSerializer
 from django.shortcuts import get_object_or_404
+from products.models import Product
+from products.serializers import ProductSerializer
 
 # Create your views here.
 
@@ -16,21 +18,24 @@ def get_user_purchases(request):
         serializer = PurchaseSerializer(purchases, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def get_product_purchases(request, ppk):
+
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def get_product_purchases(request, ppk):
+def product_purchases(request, ppk):
     if request.method == 'GET':
         purchases = Purchase.objects.filter(product_id=ppk)
         serializer = PurchaseSerializer(purchases, many=True)
         return Response(serializer.data)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def post_purchase(request, ppk):
     if request.method == 'POST':
+        product = Product.objects.get(pk=ppk)
         serializer = PurchaseSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(product_id=ppk, user_id=request.user.id)
+        serializer2 = ProductSerializer(product, data=request.data, partial=True)
+        if serializer.is_valid() & serializer2.is_valid():
+            serializer.save(product=product, user_id=request.user.id)
+            serializer2.save(stock_level=3)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
