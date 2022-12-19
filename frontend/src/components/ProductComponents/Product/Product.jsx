@@ -6,6 +6,7 @@ import StockButtonGroup from "../StockButtonComponents/StockButtonGroup/StockBut
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import PurchaseButton from "../PurchaseButton/PurchaseButton";
+import PurchaseHistoryModal from "../PurchaseHistoryModal/PurchaseHistoryModal";
 
 const Product = ({ product, index, getProducts }) => {
   const [user, token] = useAuth();
@@ -39,9 +40,7 @@ const Product = ({ product, index, getProducts }) => {
 
   return (
     <tr className="table-primary">
-      <th scope="row">
-        {product.name}, {product.stock_level}
-      </th>
+      <th scope="row">{product.name}</th>
 
       {product.brand ? <td>{product.brand}</td> : <td>NA</td>}
       {product.description ? <td>{product.description}</td> : <td>NA</td>}
@@ -54,6 +53,9 @@ const Product = ({ product, index, getProducts }) => {
       </td>
       <td>
         <PurchaseButton product={product} getProducts={getProducts} />
+      </td>
+      <td>
+        <PurchaseHistoryModal product={product} />
       </td>
     </tr>
   );

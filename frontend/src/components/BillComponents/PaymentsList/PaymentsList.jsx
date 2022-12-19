@@ -12,7 +12,7 @@ const PaymentsList = ({ bill, payments }) => {
       </thead>
       <tbody>
         {payments.map((payment, index) => {
-          return <Payment payment={payment} index={index} />;
+          return <Payment payment={payment} key={index} />;
         })}
       </tbody>
     </table>
