@@ -11,7 +11,11 @@ const InventoryPage = ({ residents, household }) => {
   const [user, token] = useAuth();
   const [allCategories, setAllCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [personalCategories, setPersonalCategories] = useState([]);
+  const [householdCategories, setHouseholdCategories] = useState([]);
   const [displayCategories, setDisplayCategories] = useState([]);
+  const [miscellaneousProducts, setMiscellaneousProducts] = useState();
+  const [displayingHousehold, setDisplayingHousehold] = useState(false);
 
   async function getCategories() {
     let response = await axios.get("http://127.0.0.1:8000/api/categories/", {
@@ -30,39 +34,64 @@ const InventoryPage = ({ residents, household }) => {
     setProducts(response.data);
   }
 
-  let personalCategories = allCategories.filter((category) => {
-    if (!category.household) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  function getUncategorizedProducts() {
+    let filtered_products = products.filter((product) => {
+      if (!product.category) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setMiscellaneousProducts(filtered_products);
+  }
 
-  console.log(personalCategories);
+  function getPersonalCategories() {
+    let filteredCategories = allCategories.filter((category) => {
+      if (!category.household) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setPersonalCategories(filteredCategories);
+  }
 
-  let householdCategories = allCategories.filter((category) => {
-    if (category.household) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  console.log(householdCategories);
+  function getHouseholdCategories() {
+    let filteredCategories = allCategories.filter((category) => {
+      if (category.household) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setHouseholdCategories(filteredCategories);
+  }
 
   useEffect(() => {
     getCategories();
+    getProducts();
   }, []);
+
+  useEffect(() => {
+    getUncategorizedProducts();
+  }, [products]);
+
+  useEffect(() => {
+    getPersonalCategories();
+    getHouseholdCategories();
+  }, [allCategories]);
 
   function handlePersonal(event) {
     // event.preventDefault();
     setDisplayCategories(personalCategories);
+    setDisplayingHousehold(false);
     console.log("mine");
   }
 
   function handleEveryones(event) {
     // event.preventDefault();
     setDisplayCategories(householdCategories);
+    setDisplayingHousehold(true);
     console.log("ours");
   }
 
@@ -79,6 +108,7 @@ const InventoryPage = ({ residents, household }) => {
         <CreateCategoryModal
           household={household}
           getCategories={getCategories}
+          isHousehold={displayingHousehold}
         />
       </div>
       <div>all the stuff you keep in the house!</div>
@@ -110,9 +140,12 @@ const InventoryPage = ({ residents, household }) => {
       </div>
       <div>
         {displayCategories.length > 0 ? (
-          displayCategories.map((category, index) => {
-            return <CategoryContainer category={category} index={index} />;
-          })
+          <div>
+            {displayCategories.map((category, index) => {
+              return <CategoryContainer category={category} index={index} />;
+            })}
+            <ProductList products={miscellaneousProducts} />
+          </div>
         ) : (
           <p>
             <ProductList products={products} />{" "}

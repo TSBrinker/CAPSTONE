@@ -8,7 +8,7 @@ from households.models import Household
 class Product(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     secondary_users = models.ManyToManyField(User, blank=True, default=None, related_name="product_secondaries")
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50)
     brand = models.CharField(max_length=50, null=True, blank=True)
     description = models.CharField(max_length=200, null=True, blank=True)

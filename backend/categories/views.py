@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 @permission_classes([IsAuthenticated])
 def get_categories(request):
     if request.method == 'POST':
+        print(request.data)
         data=request.data
         if request.data["is_household"] == True:
             new_category = Category.objects.create(user = request.user, name=data["name"], description=data["description"], household=request.user.household)
