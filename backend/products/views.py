@@ -51,4 +51,14 @@ def update_product(request, pk):
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def set_stock_level(request, pk, stock_level):
+    product = get_object_or_404(Product, pk=pk)
+    serializer=ProductSerializer(product, data=request.data, partial=True)
+    serializer.is_valid(raise_exception=True)
+    print(product.stock_level)
+    print(stock_level)
+    serializer.save(owner=request.user, stock_level=stock_level)
+    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)

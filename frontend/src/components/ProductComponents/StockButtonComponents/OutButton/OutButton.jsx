@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const OutButton = ({ product }) => {
+const OutButton = ({ product, setStockLevel }) => {
+  const [activeStatus, setActiveStatus] = useState("inactive");
+  let out_level = 0;
+
+  useEffect(() => {
+    if (product.stocked_level != out_level) {
+      setActiveStatus("inactive");
+    } else {
+      setActiveStatus("active");
+    }
+  }, [product]);
+
   return (
     <div>
       <input
-        type="radio"
+        type="button"
         className="btn-check"
-        name="btnradio"
+        name="btn"
         id="stock3"
         autocomplete="off"
       />

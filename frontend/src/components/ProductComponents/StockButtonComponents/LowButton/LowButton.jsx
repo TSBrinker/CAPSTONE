@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
 
-const LowButton = ({ product }) => {
+const LowButton = ({ product, setStockLevel }) => {
+  const [activeStatus, setActiveStatus] = useState("btn-outline-dark bg-light");
+
+  let low_level = 1;
+
+  useEffect(() => {
+    if (product.stock_level != low_level) {
+      setActiveStatus("btn-outline-dark bg-light");
+    } else {
+      setActiveStatus("btn-warning");
+    }
+  }, [product]);
+
   return (
     <div>
       <input
-        type="radio"
+        type="button"
         className="btn-check"
-        name="btnradio"
+        name="btn"
         id="stock2"
         autocomplete="off"
       />
-      <label className="btn btn-sm btn-outline-dark bg-light" for="stock2">
+      <label className={`btn btn-sm ${activeStatus}`} for="stock2">
         Low
       </label>
     </div>
