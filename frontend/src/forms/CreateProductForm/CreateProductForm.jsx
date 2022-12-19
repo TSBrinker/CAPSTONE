@@ -5,9 +5,9 @@ import SelectCategoryList from "../../components/ProductComponents/SelectCategor
 import SplitWithResidentsList from "../../components/BillComponents/SplitWithResidentsList/SplitWithResidentsList";
 
 const CreateProductForm = ({
-  refreshProducts,
+  getAllTheThings,
   setShow,
-  residents,
+
   categories,
   isHousehold,
 }) => {
@@ -18,9 +18,8 @@ const CreateProductForm = ({
   const [productName, setProductName] = useState("");
   const [productBrand, setProductBrand] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productStockLevel, setProductStockLevel] = useState(2);
+  const [productStockLevel, setProductStockLevel] = useState(3);
   const [productIsHousehold, setProductIsHousehold] = useState(isHousehold);
-  const [productHousehold, setProductHousehold] = useState("");
 
   const handleClose = (event) => {
     // event.preventDefault();
@@ -37,7 +36,6 @@ const CreateProductForm = ({
       users: productUsers,
       stock_level: productStockLevel,
       is_household: productIsHousehold,
-      household: productHousehold,
     };
 
     try {
@@ -51,7 +49,8 @@ const CreateProductForm = ({
         }
       );
       if (response.status === 201) {
-        await refreshProducts();
+        console.log("Products!!!! Done fired.");
+        await getAllTheThings();
       }
     } catch (error) {
       console.log(error.response.data);
@@ -83,6 +82,7 @@ const CreateProductForm = ({
             placeholder="Milk, Eggs, Butter..."
             onChange={(event) => setProductName(event.target.value)}
             value={productName}
+            maxLength="50"
           />
         </div>
         {/* //////////////////////////// */}
@@ -90,7 +90,7 @@ const CreateProductForm = ({
           <label className="form-label mt-4">Category</label>
           <select
             className="form-select"
-            id="exampleSelect2"
+            id={`$category`}
             onChange={(event) => setProductCategory(event.target.value)}
           >
             <option value="0">None</option>
@@ -108,6 +108,7 @@ const CreateProductForm = ({
               aria-label="Brand"
               onChange={(event) => setProductBrand(event.target.value)}
               value={productBrand}
+              maxLength="50"
             />
           </div>
         </div>
@@ -121,6 +122,7 @@ const CreateProductForm = ({
             placeholder="Any other details you want to keep track of, or variety of items you like (like *DoubleStuf* Oreos, or *Distilled* water)."
             onChange={(event) => setProductDescription(event.target.value)}
             value={productDescription}
+            maxLength="200"
           />
         </div>
         {/* //////////////////////////// */}
@@ -134,26 +136,7 @@ const CreateProductForm = ({
             value={productQuantity}
           />
         </div> */}
-        <div className="form-check mt-3">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="checkMultipleUsers"
-            onChange={() => handleMultipleUsers()}
-          />
-          <label className="form-check-label" htmlFor="flexCheckDefault">
-            Add Housemates to this product?
-          </label>
-        </div>{" "}
-        {multipleUsers ? (
-          <div className="card border-info p-2">
-            <SplitWithResidentsList
-              residents={residents}
-              users={productUsers}
-              setUsers={setProductUsers}
-            />
-          </div>
-        ) : null}
+
         {/* //////////////////////////// */}
         <div className="form-row">
           <button

@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const CreateCategoryForm = ({
-  getPersonalCategories,
-  setShow,
-  isHousehold,
-  getHouseholdCategories,
-}) => {
+const CreateCategoryForm = ({ getAllTheThings, setShow, isHousehold }) => {
   const [user, token] = useAuth();
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
@@ -37,8 +32,8 @@ const CreateCategoryForm = ({
         }
       );
       if (response.status === 201) {
-        await getPersonalCategories();
-        await getHouseholdCategories();
+        console.log("Am I actually firing? (Category)");
+        getAllTheThings();
       }
     } catch (error) {}
   }
@@ -77,7 +72,7 @@ const CreateCategoryForm = ({
           />
         </div>
         <div>
-          <input hidden value={isHousehold} />
+          <input hidden readOnly value={isHousehold} />
         </div>
         <div className="form-row">
           <button

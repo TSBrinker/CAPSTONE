@@ -3,7 +3,7 @@ import Product from "../Product/Product";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 
-const ProductList = ({ category, productRefresh }) => {
+const ProductList = ({ category, getAllTheThings }) => {
   const [user, token] = useAuth();
   const [products, setProducts] = useState([]);
 
@@ -16,6 +16,9 @@ const ProductList = ({ category, productRefresh }) => {
         },
       }
     );
+    console.log(
+      `getProducts in ProductList for ${category.name} is doing the thing!`
+    );
     setProducts(response.data);
   }
 
@@ -23,7 +26,7 @@ const ProductList = ({ category, productRefresh }) => {
     if (category) {
       getProducts();
     }
-  }, [productRefresh]);
+  }, [getAllTheThings, category]);
 
   return products.length > 0 ? (
     <>
@@ -40,6 +43,7 @@ const ProductList = ({ category, productRefresh }) => {
           {products.map((product, index) => {
             return (
               <Product
+                key={index}
                 product={product}
                 index={index}
                 getProducts={getProducts}

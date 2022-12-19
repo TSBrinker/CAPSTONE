@@ -23,12 +23,12 @@ const StockedButton = ({ product, setStockLevel }) => {
         className="btn-check"
         name="btn"
         id={`${product.id}stocked`}
-        autocomplete="off"
+        autoComplete="off"
         onClick={handleClick}
       />
       <label
         className={`btn btn-sm ${activeStatus}`}
-        for={`${product.id}stocked`}
+        htmlFor={`${product.id}stocked`}
       >
         Stocked
       </label>

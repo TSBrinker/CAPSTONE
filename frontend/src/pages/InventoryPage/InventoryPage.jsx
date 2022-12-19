@@ -9,10 +9,10 @@ import Product from "../../components/ProductComponents/Product/Product";
 
 const InventoryPage = ({ residents, household }) => {
   const [user, token] = useAuth();
-  const [productRefresh, setProductRefresh] = useState(0);
   const [personalCategories, setPersonalCategories] = useState([]);
   const [householdCategories, setHouseholdCategories] = useState([]);
-  const [displayCategories, setDisplayCategories] = useState([]);
+  const [displayCategories, setDisplayCategories] =
+    useState(personalCategories);
 
   const [displayingHousehold, setDisplayingHousehold] = useState(false);
 
@@ -22,6 +22,7 @@ const InventoryPage = ({ residents, household }) => {
         Authorization: "Bearer " + token,
       },
     });
+    console.log(`I'm getPersonalCategories and I fired in Inventory Page`);
     setPersonalCategories(response.data);
   }
 
@@ -34,17 +35,18 @@ const InventoryPage = ({ residents, household }) => {
         },
       }
     );
+    console.log(`I'm getHouseholdCategories and I fired in Inventory Page`);
     setHouseholdCategories(response.data);
   }
 
-  useEffect(() => {
-    getPersonalCategories();
+  function getAllTheThings() {
     getHouseholdCategories();
-  }, []);
-
-  function refreshProducts() {
-    setProductRefresh(productRefresh + 1);
+    getPersonalCategories();
   }
+
+  useEffect(() => {
+    getAllTheThings();
+  }, []);
 
   function handlePersonal(event) {
     // event.preventDefault();
@@ -65,15 +67,13 @@ const InventoryPage = ({ residents, household }) => {
     <div>
       <div>
         <CreateProductModal
-          refreshProducts={refreshProducts}
+          getAllTheThings={getAllTheThings}
           categories={displayCategories}
-          residents={residents}
           isHousehold={displayingHousehold}
         />
         <CreateCategoryModal
           household={household}
-          getPersonalCategories={getPersonalCategories}
-          getHouseholdCategories={getHouseholdCategories}
+          getAllTheThings={getAllTheThings}
           isHousehold={displayingHousehold}
         />
       </div>
@@ -109,44 +109,51 @@ const InventoryPage = ({ residents, household }) => {
         </label>
       </div>
       <div>
-        {displayCategories.length > 0 ? (
+        {displayingHousehold ? (
           <div>
-            <div>
-              {displayCategories.map((category, index) => {
-                return <CategoryContainer category={category} index={index} />;
-              })}
-            </div>
-            <div className="border border-rounded border-secondary mx-4 my-1 p-2">
-              <h3>Misc:</h3>
-              <p>
-                <ProductList productRefresh={productRefresh} />{" "}
-              </p>
-            </div>
+            {householdCategories.map((category, index) => {
+              return (
+                <CategoryContainer
+                  key={index}
+                  category={category}
+                  index={index}
+                />
+              );
+            })}{" "}
           </div>
         ) : (
-          <div className="border border-rounded border-secondary mx-4 my-1 p-2">
-            <h3>Misc:</h3>
-            <p>
-              <ProductList productRefresh={productRefresh} />{" "}
-            </p>
+          <div>
+            {personalCategories.map((category, index) => {
+              return (
+                <CategoryContainer
+                  key={index}
+                  category={category}
+                  index={index}
+                />
+              );
+            })}{" "}
           </div>
         )}
+
+        <div className="border border-rounded border-secondary mx-4 my-1 p-2">
+          <h3>Misc</h3>
+          <ProductList getAllTheThings={getAllTheThings} />{" "}
+        </div>
       </div>
       <div>
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            All or by category?
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Get the categories so that when you're making a product you can see
-            the list
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Display all products- add buttons on each card for *Low* *Out* and
-            *Stocked*
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Separate category for mine and shared with me?
+            {/* FIRST OF ALL: Categories not rendering when page is loaded.
+          </li> */}
+            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
+            Categories not refreshing when new category is made
+          </li> */}
+            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
+            Same with products. It's creating! The function to retrieve the
+            things is firing! But it's not
+          </li> */}
+            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
+            Separate category for mine and shared with me? */}
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             BACKLOG none yet

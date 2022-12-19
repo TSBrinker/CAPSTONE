@@ -48,6 +48,7 @@ const JoinRequestList = ({
   } else {
     console.log("no requests");
   }
+
   return pendingRequests ? (
     requests.map((request, index) => {
       return (
@@ -61,7 +62,13 @@ const JoinRequestList = ({
       );
     })
   ) : (
-    <div>Nothing to see here!</div>
+    <div className="h-100">
+      <h4>No pending invites</h4>
+      <p className="lead text-muted">
+        When a user requests to join your Household, their request will show up
+        here.
+      </p>
+    </div>
   );
 };
 

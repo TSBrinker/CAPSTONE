@@ -3,7 +3,7 @@ import SelectCategory from "../SelectCategory/SelectCategory";
 
 const SelectCategoryList = ({ categories }) => {
   return categories.map((category, index) => {
-    return <SelectCategory category={category} index={index} />;
+    return <SelectCategory key={index} category={category} index={index} />;
   });
 };
 

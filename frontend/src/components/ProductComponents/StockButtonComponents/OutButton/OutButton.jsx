@@ -24,7 +24,7 @@ const OutButton = ({ product, setStockLevel }) => {
         className="btn-check"
         name="btn"
         id={`${product.id}out`}
-        autocomplete="off"
+        autoComplete="off"
         onClick={handleClick}
       />
       <label
