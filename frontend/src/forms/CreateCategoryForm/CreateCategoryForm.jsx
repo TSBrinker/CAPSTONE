@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const CreateCategoryForm = ({ getCategories, setShow, isHousehold }) => {
+const CreateCategoryForm = ({
+  getPersonalCategories,
+  setShow,
+  isHousehold,
+  getHouseholdCategories,
+}) => {
   const [user, token] = useAuth();
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
@@ -32,7 +37,8 @@ const CreateCategoryForm = ({ getCategories, setShow, isHousehold }) => {
         }
       );
       if (response.status === 201) {
-        await getCategories();
+        await getPersonalCategories();
+        await getHouseholdCategories();
       }
     } catch (error) {}
   }

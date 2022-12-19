@@ -4,7 +4,13 @@ import axios from "axios";
 import SelectCategoryList from "../../components/ProductComponents/SelectCategoryList/SelectCategoryList";
 import SplitWithResidentsList from "../../components/BillComponents/SplitWithResidentsList/SplitWithResidentsList";
 
-const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
+const CreateProductForm = ({
+  refreshProducts,
+  setShow,
+  residents,
+  categories,
+  isHousehold,
+}) => {
   const [user, token] = useAuth();
   const [productUsers, setProductUsers] = useState([]);
   const [multipleUsers, setMultipleUsers] = useState(false);
@@ -12,8 +18,8 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
   const [productName, setProductName] = useState("");
   const [productBrand, setProductBrand] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productStockLevel, setProductStockedStatus] = useState(2);
-  const [productIsHousehold, setProductIsHousehold] = useState(false);
+  const [productStockLevel, setProductStockLevel] = useState(2);
+  const [productIsHousehold, setProductIsHousehold] = useState(isHousehold);
   const [productHousehold, setProductHousehold] = useState("");
 
   const handleClose = (event) => {
@@ -45,7 +51,7 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
         }
       );
       if (response.status === 201) {
-        await getProducts();
+        await refreshProducts();
       }
     } catch (error) {
       console.log(error.response.data);
@@ -69,45 +75,6 @@ const CreateProductForm = ({ getProducts, setShow, residents, categories }) => {
   return (
     <form>
       <fieldset>
-        <div
-          className="btn-group"
-          role="group"
-          aria-label="Basic radio toggle button group"
-        >
-          <input
-            type="radio"
-            className="btn-check btn-secondary"
-            name="btnradio"
-            id="btnradio1"
-            autocomplete="off"
-            // checked=""
-          />
-          <label className="btn btn-outline-primary" for="btnradio1">
-            Mine
-          </label>
-          <input
-            type="radio"
-            className="btn-check"
-            name="btnradio"
-            id="btnradio2"
-            autocomplete="off"
-            // checked=""
-          />
-          <label className="btn btn-outline-primary" for="btnradio2">
-            Shared
-          </label>
-          <input
-            type="radio"
-            className="btn-check"
-            name="btnradio"
-            id="btnradio3"
-            autocomplete="off"
-            // checked=""
-          />
-          <label className="btn btn-outline-primary" for="btnradio3">
-            Household
-          </label>
-        </div>
         <div className="form-group">
           <label className="form-label mt-4">Product Name</label>
           <input

@@ -89,7 +89,7 @@ function App() {
 
   useEffect(() => {
     getResidents();
-  }, []);
+  }, [household]);
 
   ///////////// Get the requests to join here so it can display a pill when there's a pending request
   return (

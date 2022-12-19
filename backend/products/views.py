@@ -17,7 +17,10 @@ def get_products(request):
         data=request.data
         print(request.user)
         category = get_object_or_404(Category, pk = request.data["category"])
-        new_product = Product.objects.create(owner = request.user, name=data["name"], category=category, brand=data["brand"], stock_status=data["stock_status"], quantity=data["quantity"])        
+        if request.data["is_household"] == True:
+            new_product = Product.objects.create(owner = request.user, name=data["name"], category=category, brand=data["brand"], stock_level=2, household=request.user.household)        
+        else:
+            new_product = Product.objects.create(owner = request.user, name=data["name"], category=category, brand=data["brand"], stock_level=2)        
         new_product.save()
         for user in request.data["users"]:
             user_obj = User.objects.get(pk=user)

@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Category
 from .serializers import CategorySerializer
 from django.shortcuts import get_object_or_404
+from products.models import Product
+from products.serializers import ProductSerializer
 
 # Create your views here.
 
@@ -27,8 +29,23 @@ def get_categories(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
         categories = Category.objects.filter(user=request.user.id)
-        serializer = CategorySerializer(categories, many=True)
+        personal_categories = categories.exclude(is_household=True)
+        serializer = CategorySerializer(personal_categories, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_household_categories(request):
+    categories = Category.objects.filter(household=request.user.household)
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_products_by_category(request, pk):
+    products = Product.objects.filter(category_id=pk)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])

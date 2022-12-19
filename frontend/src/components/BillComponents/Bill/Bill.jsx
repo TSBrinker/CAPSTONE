@@ -65,7 +65,7 @@ const Bill = ({ bill, i, bills, getBills }) => {
   }
 
   return bills.length > 0 ? (
-    <div className={`card mb-3 border-secondary`} style={{ width: "20rem" }}>
+    <div className={`card mb-3 border-secondary`} style={{ width: "25vw" }}>
       <div className="card-header mt-3">{bill.name}</div>
       <div className="card-body">
         <h4 className="card-title">{bill.payee}</h4>
