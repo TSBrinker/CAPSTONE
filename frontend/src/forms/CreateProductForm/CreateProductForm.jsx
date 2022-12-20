@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import SelectCategoryList from "../../components/ProductComponents/SelectCategoryList/SelectCategoryList";
@@ -7,19 +7,18 @@ import SplitWithResidentsList from "../../components/BillComponents/SplitWithRes
 const CreateProductForm = ({
   getAllTheThings,
   setShow,
-
-  categories,
+  category,
   isHousehold,
 }) => {
   const [user, token] = useAuth();
   const [productUsers, setProductUsers] = useState([]);
   const [multipleUsers, setMultipleUsers] = useState(false);
-  const [productCategory, setProductCategory] = useState("");
+  const [productCategory, setProductCategory] = useState(category);
   const [productName, setProductName] = useState("");
   const [productBrand, setProductBrand] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productStockLevel, setProductStockLevel] = useState(3);
-  const [productIsHousehold, setProductIsHousehold] = useState(isHousehold);
+  const inputRef = useRef();
+  // const [productIsHousehold, setProductIsHousehold] = useState(isHousehold);
 
   const handleClose = (event) => {
     // event.preventDefault();
@@ -27,15 +26,16 @@ const CreateProductForm = ({
   };
 
   async function addProduct() {
+    console.log(`I'm testing the value of ${isHousehold}`);
     let newProduct = {
       owner: user.id,
       name: productName,
-      category: productCategory,
+      category: productCategory.id,
       brand: productBrand,
       description: productDescription,
       users: productUsers,
-      stock_level: productStockLevel,
-      is_household: productIsHousehold,
+
+      is_household: isHousehold,
     };
 
     try {
@@ -75,6 +75,17 @@ const CreateProductForm = ({
     <form>
       <fieldset>
         <div className="form-group">
+          <label className="form-label mt-4">Category</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Milk, Eggs, Butter..."
+            ref={inputRef}
+            readonly
+            value={category.name}
+          />
+        </div>
+        <div className="form-group">
           <label className="form-label mt-4">Product Name*</label>
           <input
             type="text"
@@ -84,19 +95,7 @@ const CreateProductForm = ({
             value={productName}
             maxLength="50"
           />
-        </div>
-        {/* //////////////////////////// */}
-        <div className="form-group">
-          <label className="form-label mt-4">Category*</label>
-          <select
-            className="form-select"
-            id={`$category`}
-            onChange={(event) => setProductCategory(event.target.value)}
-            required
-          >
-            <option value="0"></option>
-            <SelectCategoryList categories={categories} />
-          </select>
+          {/* //////////////////////////// */}
         </div>
         {/* //////////////////////////// */}
         <div className="form-group">

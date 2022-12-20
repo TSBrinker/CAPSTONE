@@ -3,7 +3,7 @@ import axios from "axios";
 import CreateProductForm from "../../../forms/CreateProductForm/CreateProductForm";
 import { Modal } from "react-bootstrap";
 
-const CreateProductModal = ({ getAllTheThings, categories, isHousehold }) => {
+const CreateProductModal = ({ getAllTheThings, category, isHousehold }) => {
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -19,11 +19,11 @@ const CreateProductModal = ({ getAllTheThings, categories, isHousehold }) => {
     <>
       <div className="d-grid gap-2 mt-5">
         <button
-          className="btn btn-secondary btn-large mx-auto"
+          className="btn btn-secondary mx-auto"
           onClick={handleShow}
           type="button"
         >
-          <p className="lead mb-0">Add Product</p>
+          New
         </button>
       </div>
 
@@ -33,7 +33,7 @@ const CreateProductModal = ({ getAllTheThings, categories, isHousehold }) => {
         </Modal.Header>
         <Modal.Body>
           <CreateProductForm
-            categories={categories}
+            category={category}
             getAllTheThings={getAllTheThings}
             setShow={setShow}
             isHousehold={isHousehold}

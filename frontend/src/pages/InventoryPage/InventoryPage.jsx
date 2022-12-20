@@ -4,16 +4,13 @@ import useAuth from "../../hooks/useAuth";
 import CreateCategoryModal from "../../components/ProductComponents/CreateCategoryModal/CreateCategoryModal";
 import CreateProductModal from "../../components/ProductComponents/CreateProductModal/CreateProductModal";
 import CategoryContainer from "../../components/ProductComponents/CategoryContainer/CategoryContainer";
-import ProductList from "../../components/ProductComponents/ProductList/ProductList";
-import Product from "../../components/ProductComponents/Product/Product";
 
-const InventoryPage = ({ residents, household }) => {
+const InventoryPage = ({ household }) => {
   const [user, token] = useAuth();
   const [personalCategories, setPersonalCategories] = useState([]);
   const [householdCategories, setHouseholdCategories] = useState([]);
   const [displayCategories, setDisplayCategories] =
     useState(personalCategories);
-
   const [displayingHousehold, setDisplayingHousehold] = useState(false);
 
   async function getPersonalCategories() {
@@ -62,22 +59,13 @@ const InventoryPage = ({ residents, household }) => {
 
     console.log("ours");
   }
-
+  console.log(`I'm showing displayingHousehold as ${displayingHousehold}`);
   return (
     <div>
-      <div>
-        <CreateProductModal
-          getAllTheThings={getAllTheThings}
-          categories={displayCategories}
-          isHousehold={displayingHousehold}
-        />
-        <CreateCategoryModal
-          household={household}
-          getAllTheThings={getAllTheThings}
-          isHousehold={displayingHousehold}
-        />
-      </div>
-      <div className="btn-group margin-auto" role="group">
+      <div
+        className="d-flex mx-4 justify-content-between mt-3 btn-group"
+        role="group"
+      >
         <input
           type="radio"
           className="btn-check btn-secondary"
@@ -88,7 +76,7 @@ const InventoryPage = ({ residents, household }) => {
           defaultChecked
         />
         <label
-          className="btn btn-outline-primary"
+          className="btn btn-lg btn-outline-primary"
           htmlFor="setPersonalCategories"
         >
           Mine
@@ -102,12 +90,24 @@ const InventoryPage = ({ residents, household }) => {
           onClick={handleEveryones}
         />
         <label
-          className="btn btn-outline-primary"
+          className="btn btn-lg btn-outline-primary"
           htmlFor="setHouseholdCategories"
         >
           Household
         </label>
       </div>
+      <div className="d-flex justify-content-around">
+        <CreateProductModal
+          getAllTheThings={getAllTheThings}
+          categories={displayCategories}
+        />
+        <CreateCategoryModal
+          household={household}
+          getAllTheThings={getAllTheThings}
+          isHousehold={displayingHousehold}
+        />
+      </div>
+
       <div>
         {displayingHousehold ? (
           <div>
@@ -116,7 +116,9 @@ const InventoryPage = ({ residents, household }) => {
                 <CategoryContainer
                   key={index}
                   category={category}
+                  isHousehold={displayingHousehold}
                   index={index}
+                  getAllTheThings={getAllTheThings}
                 />
               );
             })}{" "}
@@ -126,6 +128,8 @@ const InventoryPage = ({ residents, household }) => {
             {personalCategories.map((category, index) => {
               return (
                 <CategoryContainer
+                  isHousehold={displayingHousehold}
+                  getAllTheThings={getAllTheThings}
                   key={index}
                   category={category}
                   index={index}

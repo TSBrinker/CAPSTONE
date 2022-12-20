@@ -16,10 +16,9 @@ const Payment = ({ purchase }) => {
 
   console.dir(purchase);
   return (
-    <tr className="table-light">
+    <tr className="table-primary">
       <td>
-        {displayName} purchased on
-        {purchase.date}.
+        {displayName} purchased on {purchase.date}.
       </td>
     </tr>
   );
