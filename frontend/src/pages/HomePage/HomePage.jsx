@@ -26,7 +26,7 @@ const HomePage = ({ getHousehold, household, setHouseholdID, residents }) => {
       <ResidentsList residents={residents} />
     </div>
   ) : (
-    <div>
+    <div className="text-center my-3">
       <h1>Welcome, {user.username}!</h1>
       <Container>
         <div className="border border-3 rounded border-primary p-3">

@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 
 import CreateBillForm from "../../../forms/CreateBillForm/CreateBillForm";
 
-const CreateBillModal = ({ getBills, residents }) => {
+const CreateBillModal = ({ getAllTheThings, isHousehold }) => {
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -16,14 +16,14 @@ const CreateBillModal = ({ getBills, residents }) => {
   };
 
   return (
-    <>
-      <div className="d-grid gap-2 mt-5">
+    <div>
+      <div>
         <button
-          className="btn btn-secondary mx-auto"
+          className="btn btn-secondary btn my-1"
           onClick={handleShow}
           type="button"
         >
-          <>Add Bill</>
+          Add Bill
         </button>
       </div>
 
@@ -33,13 +33,13 @@ const CreateBillModal = ({ getBills, residents }) => {
         </Modal.Header>
         <Modal.Body>
           <CreateBillForm
-            getBills={getBills}
+            getAllTheThings={getAllTheThings}
             setShow={setShow}
-            residents={residents}
+            isHousehold={isHousehold}
           />
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 };
 

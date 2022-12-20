@@ -67,11 +67,13 @@ const JoinRequest = ({ household }) => {
 
   return requested ? (
     <div>
-      <p>Request Submitted!</p>
+      <p className="text-muted">Request Submitted!</p>
     </div>
   ) : (
     <div>
-      <button onClick={handleSubmit}>Request to Join</button>
+      <button className="btn btn-primary btn-sm" onClick={handleSubmit}>
+        Request to Join
+      </button>
     </div>
   );
 };

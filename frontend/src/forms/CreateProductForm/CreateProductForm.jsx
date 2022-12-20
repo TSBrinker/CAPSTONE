@@ -81,7 +81,7 @@ const CreateProductForm = ({
             className="form-control"
             placeholder="Milk, Eggs, Butter..."
             ref={inputRef}
-            readonly
+            readOnly
             value={category.name}
           />
         </div>

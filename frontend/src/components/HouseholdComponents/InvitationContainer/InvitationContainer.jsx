@@ -31,7 +31,7 @@ const InvitationContainer = ({ admin, householdID }) => {
   }, []);
 
   return (
-    <div className="container border border-curved">
+    <div className="container border rounded mt-1 bg-secondary">
       <div>
         <h4 className="lead">{invites.length}/3 Invite Codes Generated</h4>
       </div>

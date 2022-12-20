@@ -52,13 +52,13 @@ const JoinRequestList = ({
   return pendingRequests ? (
     requests.map((request, index) => {
       return (
-        <div className="margin-auto">
+        <>
           <JoinRequestCard
             request={request}
             index={index}
             getRequests={getRequests}
           />
-        </div>
+        </>
       );
     })
   ) : (

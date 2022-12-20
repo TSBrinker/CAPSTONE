@@ -62,7 +62,7 @@ const ShoppingListPage = ({ household }) => {
   return (
     <div>
       <div
-        className="d-flex mx-4 justify-content-between mt-3 btn-group"
+        className="d-flex mx-4 justify-content-between mt-1 btn-group"
         role="group"
       >
         <input
@@ -121,26 +121,6 @@ const ShoppingListPage = ({ household }) => {
             })}{" "}
           </div>
         )}
-      </div>
-      <div>
-        <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            {/* FIRST OF ALL: Categories not rendering when page is loaded.
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Categories not refreshing when new category is made
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Same with products. It's creating! The function to retrieve the
-            things is firing! But it's not
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Separate category for mine and shared with me? */}
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            BACKLOG none yet
-          </li>
-        </ul>
       </div>
     </div>
   );

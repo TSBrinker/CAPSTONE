@@ -3,8 +3,9 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import CreateBillModal from "../../components/BillComponents/CreateBillModal/CreateBillModal";
 import BillList from "../../components/BillComponents/BillList/BillList";
+import PaidBillList from "../../components/BillComponents/PaidBillList/PaidBillList";
 
-const BillsPage = ({ household }) => {
+const BillsPage = ({ residents }) => {
   const [user, token] = useAuth();
   const [personalBills, setPersonalBills] = useState([]);
   const [householdBills, setHouseholdBills] = useState([]);
@@ -43,6 +44,8 @@ const BillsPage = ({ household }) => {
     getAllTheThings();
   }, []);
 
+  console.log(personalBills);
+
   function handlePersonal(event) {
     // event.preventDefault();
     setDisplayBills(personalBills);
@@ -59,7 +62,7 @@ const BillsPage = ({ household }) => {
   }
   console.log(`I'm showing displayingHousehold as ${displayingHousehold}`);
   return (
-    <div>
+    <div className="mb-3">
       <div
         className="d-flex mx-4 justify-content-between mt-1 btn-group"
         role="group"
@@ -95,15 +98,38 @@ const BillsPage = ({ household }) => {
         </label>
       </div>
       <div className="container">
-        <CreateBillModal getAllTheThings={getAllTheThings} />
+        <CreateBillModal
+          getAllTheThings={getAllTheThings}
+          isHousehold={displayingHousehold}
+        />
       </div>
-      <div className="d-flex flex-row flex-wrap justify-content-around">
-        {displayingHousehold ? (
-          <BillList bills={householdBills} getAllTheThings={getAllTheThings} />
-        ) : (
-          <BillList bills={personalBills} getAllTheThings={getAllTheThings} />
-        )}
-      </div>
+      {displayingHousehold ? (
+        <>
+          <div className="d-flex flex-row flex-wrap justify-content-around border-bottom border-light py-3">
+            <BillList
+              bills={householdBills}
+              getAllTheThings={getAllTheThings}
+              residents={residents}
+            />{" "}
+          </div>
+          <div className="d-flex flex-row flex-wrap justify-content-around py-3">
+            <PaidBillList bills={householdBills} residents={residents} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="d-flex flex-row flex-wrap justify-content-around border-bottom border-light py-3">
+            <BillList
+              bills={personalBills}
+              getAllTheThings={getAllTheThings}
+              residents={residents}
+            />{" "}
+          </div>
+          <div className="d-flex flex-row flex-wrap justify-content-around py-3">
+            <PaidBillList bills={personalBills} residents={residents} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

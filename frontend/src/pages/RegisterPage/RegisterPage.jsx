@@ -10,6 +10,7 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    nickname: "",
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -56,14 +57,15 @@ const RegisterPage = () => {
           />
         </label>
         <label>
-          Nickname:{""}
+          Nickname:{" "}
           <input
             type="text"
             name="nickname"
             value={formData.nickname}
-            default
+            onChange={handleInputChange}
           />
         </label>
+
         <p style={{ fontSize: "12px" }}>
           This is how your name will appear throughout the app.
         </p>

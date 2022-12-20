@@ -18,6 +18,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["last_name"] = user.last_name
         token["household_id"] = user.household_id
         token["is_admin"] = user.is_admin
+        token["nickname"] = user.nickname
 
         return token
 
@@ -44,6 +45,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
+            nickname=validated_data['nickname'],
 
             # If added new columns through the User model, add them in this
             # create method. Example below:

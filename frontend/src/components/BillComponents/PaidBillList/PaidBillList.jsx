@@ -2,27 +2,27 @@ import React, { useState, useEffect } from "react";
 import Bill from "../Bill/Bill";
 import useAuth from "../../../hooks/useAuth.js";
 
-const BillList = ({ bills, getAllTheThings, residents }) => {
+const PaidBillList = ({ bills, getAllTheThings, residents }) => {
   const [user, token] = useAuth();
-  const [unpaidBills, setUnpaidBills] = useState([]);
+  const [paidBills, setPaidBills] = useState([]);
 
   function filterBills() {
     let filtered_bills = bills.filter((bill) => {
-      if (!bill.is_paid) {
+      if (bill.is_paid) {
         return true;
       } else {
         return false;
       }
     });
-    setUnpaidBills(filtered_bills);
+    setPaidBills(filtered_bills);
   }
 
   useEffect(() => {
     filterBills();
   }, [bills]);
 
-  return unpaidBills.length > 0 ? (
-    unpaidBills.map((bill, index) => {
+  return paidBills.length > 0 ? (
+    paidBills.map((bill, index) => {
       return (
         <div className="m-3">
           <Bill
@@ -36,8 +36,8 @@ const BillList = ({ bills, getAllTheThings, residents }) => {
       );
     })
   ) : (
-    <div>You've got no bills coming due!</div>
+    <div>No paid bills to show here yet!</div>
   );
 };
 
-export default BillList;
+export default PaidBillList;

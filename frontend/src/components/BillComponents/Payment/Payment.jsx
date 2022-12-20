@@ -18,7 +18,7 @@ const Payment = ({ payment }) => {
   return (
     <tr className="table-light">
       <td>
-        {displayName} made a payment of ${`${payment.amount} `} on
+        {displayName} made a payment of ${payment.amount} on{" "}
         {payment.payment_date}.
       </td>
     </tr>

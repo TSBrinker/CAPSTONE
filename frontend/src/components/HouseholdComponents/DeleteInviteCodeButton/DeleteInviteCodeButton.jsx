@@ -29,7 +29,7 @@ const DeleteInviteCodeButton = ({ admin, invite, getInvites }) => {
 
   return (
     <div>
-      <button onClick={handleClick} className="btn btn-primary btn-sm">
+      <button onClick={handleClick} className="btn btn-danger btn-sm mb-2">
         Delete
       </button>
     </div>

@@ -13,7 +13,7 @@ const JoinRequestContainer = ({
   const [user, token] = useAuth();
 
   return (
-    <div className="container border border-curved">
+    <div className="container border rounded mt-1 bg-secondary">
       <JoinRequestList
         requests={requests}
         setRequests={setRequests}

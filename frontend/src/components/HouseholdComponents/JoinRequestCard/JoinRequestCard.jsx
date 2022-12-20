@@ -56,13 +56,20 @@ const JoinRequestCard = ({ request, getRequests }) => {
   }
 
   return (
-    <div>
-      <div>
-        {request.user.first_name} is requesting to join {request.household.name}
+    <div className="border rounded padding-1 my-3 mx-2 bg-dark">
+      <div className="border-bottom">
+        <h3 className="p-2">
+          {request.user.first_name} is requesting to join{" "}
+          {request.household.name}
+        </h3>
       </div>
-      <div>
-        <button onClick={handleApproval}>Approve</button>
-        <button onClick={handleDenial}>Deny</button>
+      <div className="btn-group my-3">
+        <button className="btn btn-success" onClick={handleApproval}>
+          Approve
+        </button>
+        <button className="btn btn-danger" onClick={handleDenial}>
+          Deny
+        </button>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const ResidentsList = ({ residents }) => {
       residentsString += `Just ${resident.nickname}.`;
     } else if (residents.length == 2) {
       if (i == 0) {
-        residentsString += `${resident.nickname}`;
+        residentsString += `${resident.nickname} `;
       } else if (i == residents.length - 1) {
         residentsString += `and ${resident.nickname}.`;
       }

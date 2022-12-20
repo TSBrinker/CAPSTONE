@@ -9,7 +9,7 @@ const InviteCode = ({ admin, invite, getInvites }) => {
 
   return (
     <Col>
-      <div className="border radius-1 padding-1">
+      <div className="border rounded padding-1">
         <h3>{invite.invite_number}</h3>
         <DeleteInviteCodeButton
           admin={admin}

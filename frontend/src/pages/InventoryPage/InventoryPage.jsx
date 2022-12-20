@@ -98,7 +98,6 @@ const InventoryPage = ({ household }) => {
       </div>
       <div className="btn-group d-flex justify-content-center mx-3">
         <CreateCategoryModal
-          household={household}
           getAllTheThings={getAllTheThings}
           isHousehold={displayingHousehold}
         />
@@ -134,26 +133,6 @@ const InventoryPage = ({ household }) => {
             })}{" "}
           </div>
         )}
-      </div>
-      <div>
-        <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            {/* FIRST OF ALL: Categories not rendering when page is loaded.
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Categories not refreshing when new category is made
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Same with products. It's creating! The function to retrieve the
-            things is firing! But it's not
-          </li> */}
-            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-            Separate category for mine and shared with me? */}
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            BACKLOG none yet
-          </li>
-        </ul>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const FindHouseholdForm = ({}) => {
 
   useEffect(() => {
     getAllHouseholds();
-  }, []);
+  }, [user]);
 
   function filterHouseholds() {
     let queriedHouseholds;

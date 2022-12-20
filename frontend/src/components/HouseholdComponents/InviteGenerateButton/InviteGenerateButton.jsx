@@ -30,7 +30,7 @@ const InviteGenerateButton = ({ getInvites, admin, householdID }) => {
 
   return (
     <div>
-      <button onClick={handleClick} className="btn btn-primary btn-small">
+      <button onClick={handleClick} className="btn btn-primary btn-small mb-2">
         Generate
       </button>
     </div>

@@ -5,7 +5,13 @@ import PaymentsList from "../PaymentsList/PaymentsList";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 
-const BillDetailsModal = ({ bill, getBills, payments, getPayments }) => {
+const BillDetailsModal = ({
+  bill,
+  getAllTheThings,
+  payments,
+  getPayments,
+  portion,
+}) => {
   const [user, token] = useAuth();
   const [show, setShow] = useState(false);
 
@@ -36,9 +42,10 @@ const BillDetailsModal = ({ bill, getBills, payments, getPayments }) => {
           <h4>{bill.description}</h4>
 
           <CreatePaymentForm
+            portion={portion}
             bill={bill}
             getPayments={getPayments}
-            getBills={getBills}
+            getAllTheThings={getAllTheThings}
           />
 
           <PaymentsList bill={bill} payments={payments} />

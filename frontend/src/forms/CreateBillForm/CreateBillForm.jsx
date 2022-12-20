@@ -3,13 +3,14 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import SplitWithResidentsList from "../../components/BillComponents/SplitWithResidentsList/SplitWithResidentsList";
 
-const CreateBillForm = ({ getBills, setShow, residents }) => {
+const CreateBillForm = ({ getAllTheThings, setShow, isHousehold }) => {
   const [billName, setBillName] = useState("");
   const [billPayee, setBillPayee] = useState("");
   const [billAmount, setBillAmount] = useState(0.0);
   const [billDueDate, setBillDueDate] = useState(new Date());
   const [billDescription, setBillDescription] = useState("");
-  const [billIsSplit, setBillIsSplit] = useState(false);
+
+  const [billIsHousehold, setBillIsHousehold] = useState(isHousehold);
   const [multipleUsers, setMultipleUsers] = useState(false);
   const [billUsers, setBillUsers] = useState([]);
   const [user, token] = useAuth();
@@ -26,8 +27,9 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
       amount: billAmount,
       due_date: billDueDate,
       description: billDescription,
-      is_split: billIsSplit,
-      users: billUsers,
+      // is_split: billIsSplit,
+      // users: billUsers,
+      is_household: billIsHousehold,
     };
 
     try {
@@ -41,21 +43,12 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
         }
       );
       if (response.status === 201) {
-        await getBills();
+        await getAllTheThings();
       }
     } catch (error) {
       console.log(error.response.data);
     }
   }
-
-  function handleSplit() {
-    setBillIsSplit(!billIsSplit);
-  }
-
-  function handleMultipleUsers() {
-    setMultipleUsers(!multipleUsers);
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     addBill();
@@ -65,7 +58,6 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
     setBillDescription("");
     setBillAmount(0.0);
     setBillDueDate("");
-    setBillIsSplit(false);
   };
 
   return (
@@ -139,43 +131,9 @@ const CreateBillForm = ({ getBills, setShow, residents }) => {
             value={billDueDate}
           />
         </div>
-        <div className="form-check mt-3">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="checkMultipleUsers"
-            onChange={() => handleMultipleUsers()}
-          />
-          <label className="form-check-label" htmlFor="flexCheckDefault">
-            Add Housemates to this bill?
-          </label>
-        </div>{" "}
-        {multipleUsers ? (
-          <div className="card border-info p-2">
-            <SplitWithResidentsList
-              residents={residents}
-              users={billUsers}
-              setUsers={setBillUsers}
-            />
-            <div className="form-check mt-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="checkBillIsSplit"
-                onChange={() => handleSplit()}
-                value={billIsSplit}
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault">
-                Split Bill?
-              </label>
-              <p className="text-muted blockquote-footer mt-2">
-                Splitting a bill will divide the total between yourself and
-                selected users, and any payments a user logs will only apply to
-                that user's portion.
-              </p>
-            </div>{" "}
-          </div>
-        ) : null}
+        <div>
+          <input hidden readOnly value={isHousehold} />
+        </div>
         {/* //////////////////////////// */}
         <div className="form-row">
           <button

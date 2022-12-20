@@ -19,7 +19,7 @@ const HouseholdPage = ({
 
   return (
     <div>
-      <div className="text-center"></div>
+      <div className="text-center mt-1"></div>
       {admin ? (
         <Row>
           <Col>
@@ -37,17 +37,6 @@ const HouseholdPage = ({
           </Col>
         </Row>
       ) : null}
-      <div>
-        <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            See household members
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            BACKLOG select a resident, pop up a modal, and either remove them or
-            make them an admin
-          </li>
-        </ul>
-      </div>
     </div>
   );
 };

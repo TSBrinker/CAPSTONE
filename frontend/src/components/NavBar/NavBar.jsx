@@ -62,7 +62,16 @@ const Navbar = ({ household, requests_amount, pendingRequests }) => {
             </li>
           </ul>
           {user ? (
-            <button onClick={logoutUser}>Logout</button>
+            <>
+              <ul>
+                <li>
+                  <h5 className="mx-3 pt-2">{user.nickname}</h5>
+                </li>
+                <li>
+                  <button onClick={logoutUser}>Logout</button>
+                </li>
+              </ul>
+            </>
           ) : (
             <button onClick={() => navigate("/login")}>Login</button>
           )}
