@@ -19,12 +19,12 @@ const BillDetailsModal = ({ bill, getBills, payments, getPayments }) => {
     <>
       <div className="w-100">
         <button
-          className="btn btn-primary btn-sm btn-block"
+          className="btn btn-primary btn btn-block"
           style={{ width: "100%" }}
           onClick={handleShow}
           type="button"
         >
-          <p className="lead mb-0">Payments</p>
+          Payments
         </button>
       </div>
 

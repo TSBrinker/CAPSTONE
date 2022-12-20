@@ -16,14 +16,14 @@ const CreateCategoryModal = ({ getAllTheThings, isHousehold }) => {
   };
 
   return (
-    <>
-      <div className="d-grid gap-2 mt-5">
+    <div>
+      <div>
         <button
-          className="btn btn-secondary btn-large mx-auto"
+          className="btn btn-secondary btn-sm mt-1"
           onClick={handleShow}
           type="button"
         >
-          <p className="lead mb-0">Create Category</p>
+          Create Category
         </button>
       </div>
 
@@ -39,7 +39,7 @@ const CreateCategoryModal = ({ getAllTheThings, isHousehold }) => {
           />
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 };
 

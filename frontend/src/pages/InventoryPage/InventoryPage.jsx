@@ -63,7 +63,7 @@ const InventoryPage = ({ household }) => {
   return (
     <div>
       <div
-        className="d-flex mx-4 justify-content-between mt-3 btn-group"
+        className="d-flex mx-4 justify-content-between mt-1 btn-group"
         role="group"
       >
         <input
@@ -96,11 +96,7 @@ const InventoryPage = ({ household }) => {
           Household
         </label>
       </div>
-      <div className="d-flex justify-content-around">
-        <CreateProductModal
-          getAllTheThings={getAllTheThings}
-          categories={displayCategories}
-        />
+      <div className="btn-group d-flex justify-content-center mx-3">
         <CreateCategoryModal
           household={household}
           getAllTheThings={getAllTheThings}

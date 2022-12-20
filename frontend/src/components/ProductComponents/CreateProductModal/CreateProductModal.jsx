@@ -17,7 +17,7 @@ const CreateProductModal = ({ getAllTheThings, category, isHousehold }) => {
 
   return (
     <>
-      <div className="d-grid gap-2 mt-5">
+      <div className="d-grid gap-2">
         <button
           className="btn btn-secondary mx-auto"
           onClick={handleShow}

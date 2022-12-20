@@ -19,11 +19,11 @@ const CreateBillModal = ({ getBills, residents }) => {
     <>
       <div className="d-grid gap-2 mt-5">
         <button
-          className="btn btn-secondary btn-large mx-auto"
+          className="btn btn-secondary mx-auto"
           onClick={handleShow}
           type="button"
         >
-          <p className="lead mb-0">Add Bill</p>
+          <>Add Bill</>
         </button>
       </div>
 
